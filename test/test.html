@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+   <head>
+      <title>Game Unit Test</title>
+      <link rel="stylesheet" type="text/css" href="qunit.css">
+	  <script language="javascript" src="qunit.js"></script>
+	  <!-- load the game code -->
+	  <script language="javascript" src="../js/game.js"></script>
+	  <script language="javascript" src="../js/game.cards.js"></script>
+   </head>
+   <div id="qunit"></div>
+   <div id="qunit-fixture"></div>
+   
+   <script language="javascript">
+      QUnit.test( "user card position test", function( assert ) {
+	     var distance=42;
+         var positions=game.cards.getUserCardPosition(1,"player");
+		 assert.equal(positions.x,500,"first user card postion x should be 500");
+		 var positions=game.cards.getUserCardPosition(2,"player");
+		 assert.equal(positions.x,542,"first user card postion x should be 532");
+         var positions=game.cards.getUserCardPosition(3,"player");
+		 assert.equal(positions.x,584,"first user card postion x should be 564");
+		  var positions=game.cards.getUserCardPosition(4,"player");
+		 assert.equal(positions.x,626,"first user card postion x should be 596");
+	 });
+   </script>
+   
+ </html>
