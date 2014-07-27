@@ -152,7 +152,72 @@ top: 65px;
 -moz-transform: rotateZ(25deg) rotateX(54deg) scale(0.4) rotateY(-14deg) !important;
 -ms-transform: rotateZ(25deg) rotateX(54deg) scale(0.4) rotateY(-14deg) !important;
 -o-transform: rotateZ(25deg) rotateX(54deg) scale(0.4) rotateY(-14deg) !important;
- }
+}
+
+/**
+* css for the chip list
+**/
+.clear{clear:both;}
+.chipContainer{position:absolute; bottom:0px; text-align:center; border:solid 1px green; width:100%;}
+.chipList{float:left; list-style:none;}
+.chipIcon{background-image: url(images/chips_set_rocabee3_general_optimized.png);
+background-repeat: no-repeat;
+width: 119px;
+height: 111px;
+display: inline-block;
+-webkit-transform: scale(0.55);
+margin-left: -54px;}
+.chipIcon.fristLeft{margin-left: 4px;}
+.chipIcon.chipFive{background-position:-744px -8px;}
+.chipIcon.chipTen{background-position:-895px -8px;}
+.chipIcon.chipTwentyFive{background-position:-1046px -8px;}
+.chipIcon.chipFifty{background-position:-1197px -8px;}
+.chipIcon.chipHundread{background-position:-1348px -8px;}
+.chipIcon.active{-webkit-transform: scale(0.7);
+margin-left: -39px;
+margin-right: 14px;}
+
+/**
+* css for controll icon
+**/
+.controllIcon{width:264px;height:267px; background-image:url(images/rocabee_ingame_button_set_052_optimized.png); background-repeat:no-repeat; position:absolute; -webkit-transform:scale(0.4);}
+.controllIcon.newGame{background-position:0px 0px; left: 982px;
+top: 425px;}
+.controllIcon.newGame:after{content: "NEW GAME";
+color: white;
+font-size: 22px;
+font-weight: bold;
+top: 220px;
+position: relative;
+left: 71px;}
+.controllIcon.hit{background-position:-797px 0px;left: 882px;
+top: 525px;}
+.controllIcon.hit:after{
+  content: "HIT";
+color: white;
+font-size: 28px;
+font-weight: bold;
+top: 216px;
+position: relative;
+left: 110px;
+}
+
+.controllIcon.double{background-position: -1331px 0px;
+left: 74px;
+top: 514px;}
+.controllIcon.double:after{
+  content: "DOUBLE";
+color: white;
+font-size: 28px;
+font-weight: bold;
+top: 216px;
+position: relative;
+left: 79px;
+}
+
+
+
+
 
 
 
