@@ -1,228 +1,342 @@
-/**
-* css for the game
-**/
-body{background-color:black;}
-.gameStage{width:1200px; height:800px; background-image:url("images/rocabee_blackjack_board_5.jpg"); background-repeat:no-repeat; position:relative; margin-left:auto; margin-right:auto;}
+body {
+  background-color: black; }
 
+.gameStage {
+  width: 1200px;
+  height: 800px;
+  background-image: url("images/rocabee_blackjack_board_5.jpg");
+  background-repeat: no-repeat;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto; }
 
 /* simple */
-		.flip-container {
-			-webkit-perspective: 1000;
-			-moz-perspective: 1000;
-			-ms-perspective: 1000;
-			perspective: 1000;
-
-			-ms-transform: perspective(1000px);
-			-moz-transform: perspective(1000px);
-    			-moz-transform-style: preserve-3d; 
-    			-ms-transform-style: preserve-3d; 
-border: 1px solid #ccc;
-transition:all 0.5s ease-in-out;
--webkit-transform: rotateX(5deg);
-		}
+.flip-container {
+  perspective: 1000;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  -ms-transform: perspective(1000px);
+  -moz-transform: perspective(1000px);
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  border: 1px solid #ccc;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-transform: rotateX(5deg);
+  -moz-transform: rotateX(5deg);
+  -ms-transform: rotateX(5deg);
+  -o-transform: rotateX(5deg);
+  transform: rotateX(5deg); }
 
 .flip-container.hover .back {
-    -webkit-transform: rotateY(0deg);
-    -moz-transform: rotateY(0deg);
-    -o-transform: rotateY(0deg);
-    -ms-transform: rotateY(0deg);
-    transform: rotateY(0deg);
-}
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  transform: rotateY(0deg); }
 
 .flip-container.hover .front {
-    -webkit-transform: rotateY(180deg);
-    -moz-transform: rotateY(180deg);
-    -o-transform: rotateY(180deg);
-    transform: rotateY(180deg);
-	border: 1px solid #ccc;
-transition:all 0.5s ease-in-out;
-}
-		
-		/* END: Accommodating for IE */
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  border: 1px solid #ccc;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out; }
 
-		.flip-container, .front, .back {
-		width: 257px;
-	height: 360px;
-		}
+.flip-container, .front, .back {
+  width: 257px;
+  height: 360px; }
 
-		.flipper {
-			-webkit-transition: 0.6s;
-			-webkit-transform-style: preserve-3d;
-			-ms-transition: 0.6s;
+.flipper {
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -ms-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  position: relative; }
 
-			-moz-transition: 0.6s;
-			-moz-transform: perspective(1000px);
-			-moz-transform-style: preserve-3d;
-			-ms-transform-style: preserve-3d;
+.front, .back {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transition: 0.6s;
+  -moz-transition: 0.6s;
+  -ms-transition: 0.6s;
+  -o-transition: 0.6s;
+  transition: 0.6s;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("images/generic_cards_set04_265x360size_shadow_optimized.png");
+  background-repeat: no-repeat; }
 
-			transition: 0.6s;
-			transform-style: preserve-3d;
+.front {
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+  z-index: 2;
+  background-position: -14050px 0px; }
 
-			position: relative;
-		}
-
-		.front, .back {
-			-webkit-backface-visibility: hidden;
-			-moz-backface-visibility: hidden;
-			-ms-backface-visibility: hidden;
-			backface-visibility: hidden;
-
-		    -webkit-transition: 0.6s;
-		    -webkit-transform-style: preserve-3d;
-
-		    -moz-transition: 0.6s;
-		    -moz-transform-style: preserve-3d;
-
-		    -o-transition: 0.6s;
-		    -o-transform-style: preserve-3d;
-
-		    -ms-transition: 0.6s;
-		    -ms-transform-style: preserve-3d;
-
-		    transition: 0.6s;
-		    transform-style: preserve-3d;
-
-			position: absolute;
-			top: 0;
-			left: 0;
-				background-image:url("images/generic_cards_set04_265x360size_shadow_optimized.png");
-	background-repeat:no-repeat;
-		}
-
-		.front {
-			-webkit-transform: rotateY(0deg);
-			-ms-transform: rotateY(0deg);
-			z-index: 2;
-			background-position:-14050px 0px;
-		}
-
-		.back {
-			-webkit-transform: rotateY(-180deg);
-		    -moz-transform: rotateY(-180deg);
-		    -o-transform: rotateY(-180deg);
-		    -ms-transform: rotateY(-180deg);
-		    transform: rotateY(-180deg);
-		}
-
+.back {
+  -webkit-transform: rotateY(-180deg);
+  -moz-transform: rotateY(-180deg);
+  -o-transform: rotateY(-180deg);
+  -ms-transform: rotateY(-180deg);
+  transform: rotateY(-180deg); }
 
 /**
 * css for all the card
 **/
-.bh1{background-position:-4px 0px;}
+.bh1 {
+  background-position: -4px 0px; }
 
 /**
 * css for the card when the card still in the stock
 **/
-.cardInStock{
--webkit-transform: rotateZ(-70deg) scale(0.45);
-transform: rotateZ(-70deg) scale(0.45);
--moz-transform: rotateZ(-70deg) scale(0.45);
--ms-transform: rotateZ(-70deg) scale(0.45);
--o-transform: rotateZ(-70deg) scale(0.45);
-position: absolute;
-left: 899PX;
-top: 65px;
-}
+.cardInStock {
+  -webkit-transform: rotateZ(-70deg) scale(0.45);
+  transform: rotateZ(-70deg) scale(0.45);
+  -moz-transform: rotateZ(-70deg) scale(0.45);
+  -ms-transform: rotateZ(-70deg) scale(0.45);
+  -o-transform: rotateZ(-70deg) scale(0.45);
+  position: absolute;
+  left: 899PX;
+  top: 65px; }
 
 /**
 * css when the user get the card
 **/
-.flip-container.userFirtCard{
+.flip-container.userFirtCard {
   -webkit-transform: rotateZ(0deg) rotateX(19deg) scale(0.5);
   transform: rotateZ(0deg) rotateX(19deg) scale(0.5);
--moz-transform: rotateZ(0deg) rotateX(19deg) scale(0.5);
--ms-transform: rotateZ(0deg) rotateX(19deg) scale(0.5);
--o-transform: rotateZ(0deg) rotateX(19deg) scale(0.5);
-}
+  -moz-transform: rotateZ(0deg) rotateX(19deg) scale(0.5);
+  -ms-transform: rotateZ(0deg) rotateX(19deg) scale(0.5);
+  -o-transform: rotateZ(0deg) rotateX(19deg) scale(0.5); }
 
-.flip-container.computerCard{
+.flip-container.computerCard {
   -webkit-transform: rotateZ(0deg) rotateX(34deg) scale(0.4);
   transform: rotateZ(0deg) rotateX(34deg) scale(0.4);
--moz-transform: rotateZ(0deg) rotateX(34deg) scale(0.4);
--ms-transform: rotateZ(0deg) rotateX(34deg) scale(0.4);
--o-transform: rotateZ(0deg) rotateX(34deg) scale(0.4);
-}
+  -moz-transform: rotateZ(0deg) rotateX(34deg) scale(0.4);
+  -ms-transform: rotateZ(0deg) rotateX(34deg) scale(0.4);
+  -o-transform: rotateZ(0deg) rotateX(34deg) scale(0.4); }
 
-.flip-container.disapppear{
-   left:24px !important;
-   top:51px !important;
-   opacity:0;
-  -webkit-transform: rotateZ(25deg) rotateX(54deg) scale(0.4) rotateY(-14deg) !important;
-  transform: rotateZ(25deg) rotateX(54deg) scale(0.4) rotateY(-14deg) !important;
--moz-transform: rotateZ(25deg) rotateX(54deg) scale(0.4) rotateY(-14deg) !important;
--ms-transform: rotateZ(25deg) rotateX(54deg) scale(0.4) rotateY(-14deg) !important;
--o-transform: rotateZ(25deg) rotateX(54deg) scale(0.4) rotateY(-14deg) !important;
-}
+.flip-container.disapppear {
+  left: 24px !important;
+  top: 51px !important;
+  opacity: 0;
+  -webkit-transform: rotateZ(25deg) rotateX(54deg) scale(0.4);
+  transform: rotateZ(25deg) rotateX(54deg) scale(0.4);
+  -moz-transform: rotateZ(25deg) rotateX(54deg) scale(0.4);
+  -ms-transform: rotateZ(25deg) rotateX(54deg) scale(0.4);
+  -o-transform: rotateZ(25deg) rotateX(54deg) scale(0.4); }
 
 /**
 * css for the chip list
 **/
-.clear{clear:both;}
-.chipContainer{position:absolute; bottom:0px; text-align:center; border:solid 1px green; width:100%;}
-.chipList{float:left; list-style:none;}
-.chipIcon{background-image: url(images/chips_set_rocabee3_general_optimized.png);
-background-repeat: no-repeat;
-width: 119px;
-height: 111px;
-display: inline-block;
--webkit-transform: scale(0.55);
-margin-left: -54px;}
-.chipIcon.fristLeft{margin-left: 4px;}
-.chipIcon.chipFive{background-position:-744px -8px;}
-.chipIcon.chipTen{background-position:-895px -8px;}
-.chipIcon.chipTwentyFive{background-position:-1046px -8px;}
-.chipIcon.chipFifty{background-position:-1197px -8px;}
-.chipIcon.chipHundread{background-position:-1348px -8px;}
-.chipIcon.active{-webkit-transform: scale(0.7);
-margin-left: -39px;
-margin-right: 14px;}
+.clear {
+  clear: both; }
+
+.chipContainer {
+  position: absolute;
+  bottom: 0px;
+  text-align: center;
+  border: solid 1px green;
+  width: 100%; }
+
+.chipList {
+  float: left;
+  list-style: none; }
+
+.chipIcon {
+  background-image: url(images/chips_set_rocabee3_general_optimized.png);
+  background-repeat: no-repeat;
+  width: 119px;
+  height: 111px;
+  display: inline-block;
+  transform: scale(0.55);
+  -webkit-transform: scale(0.55);
+  -moz-transform: scale(0.55);
+  -ms-transform: scale(0.55);
+  -o-transform: scale(0.55);
+  margin-left: -54px; }
+
+.chipIcon.fristLeft {
+  margin-left: 4px; }
+
+.chipIcon.chipFive {
+  background-position: -744px -8px; }
+
+.chipIcon.betChipFive {
+  background-position: -744px -119px; }
+
+.chipIcon.chipTen {
+  background-position: -895px -8px; }
+
+.chipIcon.betChipTen {
+  background-position: -895px -119px; }
+
+.chipIcon.chipTwentyFive {
+  background-position: -1046px -8px; }
+
+.chipIcon.betChipTwentyFive {
+  background-position: -1046px -119px; }
+
+.chipIcon.chipFifty {
+  background-position: -1197px -8px; }
+
+.chipIcon.betChipFifty {
+  background-position: -1197px -119px; }
+
+.chipIcon.chipHundread {
+  background-position: -1348px -8px; }
+
+.chipIcon.betChipHundread {
+  background-position: -1348px -119px; }
+
+.chipIcon.flyChip {
+  position: absolute;
+  height: 91px;
+  border-radius: 57px; }
+
+.flyChip.startPos {
+  left: 592px;
+  top: 627px;
+  transform: scale(0.7);
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  -o-transform: scale(0.7); }
+
+.flyChip.topEndPos {
+  left: 357px;
+  top: 296px; }
+
+.flyChip.flying {
+  -webkit-animation: putChipOnDeskTop 1s forwards;
+  -moz-animation: putChipOnDeskTop 1s forwards;
+  -ms-animation: putChipOnDeskTop 1s forwards;
+  -o-animation: putChipOnDeskTop 1s forwards;
+  animation: putChipOnDeskTop 1s forwards; }
+
+@-webkit-keyframes putChipOnDeskTop {
+  0% {
+    left: 592px;
+    top: 627px;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  50% {
+    top: 200px;
+    left: 400px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); }
+
+  100% {
+    left: 357px;
+    top: 296px; } }
+.chipIcon.active {
+  transform: scale(0.7);
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  margin-left: -39px;
+  margin-right: 14px; }
+
+.chipIcon.betPosition {
+  position: absolute;
+  left: 359px;
+  top: 290px;
+  -webkit-transform: scale(0.5) rotateX(24deg);
+  transform: scale(0.5) rotateX(24deg);
+  -moz-transform: scale(0.5) rotateX(24deg);
+  -o-transform: scale(0.5) rotateX(24deg); }
 
 /**
 * css for controll icon
 **/
-.controllIcon{width:264px;height:267px; background-image:url(images/rocabee_ingame_button_set_052_optimized.png); background-repeat:no-repeat; position:absolute; -webkit-transform:scale(0.4);}
-.controllIcon.newGame{background-position:0px 0px; left: 982px;
-top: 425px;}
-.controllIcon.newGame:after{content: "NEW GAME";
-color: white;
-font-size: 22px;
-font-weight: bold;
-top: 220px;
-position: relative;
-left: 71px;}
-.controllIcon.hit{background-position:-797px 0px;left: 882px;
-top: 525px;}
-.controllIcon.hit:after{
+.controllIcon {
+  width: 264px;
+  height: 267px;
+  background-image: url(images/rocabee_ingame_button_set_052_optimized.png);
+  background-repeat: no-repeat;
+  position: absolute;
+  transform: scale(0.4);
+  -webkit-transform: scale(0.4);
+  -moz-transform: scale(0.4);
+  -ms-transform: scale(0.4);
+  -o-transform: scale(0.4); }
+
+.controllIcon.newGame {
+  background-position: 0px 0px;
+  left: 982px;
+  top: 425px; }
+
+.controllIcon.newGame:after {
+  content: "NEW GAME";
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  top: 220px;
+  position: relative;
+  left: 71px; }
+
+.controllIcon.hit {
+  background-position: -797px 0px;
+  left: 882px;
+  top: 525px; }
+
+.controllIcon.hit:after {
   content: "HIT";
-color: white;
-font-size: 28px;
-font-weight: bold;
-top: 216px;
-position: relative;
-left: 110px;
-}
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  top: 216px;
+  position: relative;
+  left: 110px; }
 
-.controllIcon.double{background-position: -1331px 0px;
-left: 74px;
-top: 514px;}
-.controllIcon.double:after{
+.controllIcon.double {
+  background-position: -1331px 0px;
+  left: 74px;
+  top: 514px; }
+
+.controllIcon.double:after {
   content: "DOUBLE";
-color: white;
-font-size: 28px;
-font-weight: bold;
-top: 216px;
-position: relative;
-left: 79px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  top: 216px;
+  position: relative;
+  left: 79px; }
