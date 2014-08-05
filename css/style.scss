@@ -4,61 +4,8 @@ $chipsDistance:36px;
 $chipFiveX:-744px;
 $chipTopY:-8px;
 
-
-
-@mixin perspective($distance){
-perspective: $distance;
--webkit-perspective: $distance;
--moz-perspective: $distance;
--ms-perspective: $distance;
-}
-
-@mixin transformPerspective($distance){
-    -ms-transform: perspective($distance);
-    -moz-transform: perspective($distance);
-}
-@mixin transfromStyle(){-moz-transform-style: preserve-3d;-ms-transform-style: preserve-3d;-webkit-transform-style: preserve-3d;-o-transform-style: preserve-3d;transform-style: preserve-3d;}
-
-@mixin transition($property,$time,$animationType){
- @if($property=="" and $animationType==""){
-     -webkit-transition:$time;
-     -moz-transition:$time;
-     -ms-transition:$time;
-     -o-transition:$time;
-     transition:$time;
- }@else{
-    -webkit-transition:$property $time $animationType;-moz-transition:$property $time $animationType;-ms-transition:$property $time $animationType;-o-transition:$property $time $animationType;transition:$property $time $animationType; 
- }
-
-}
-
-@mixin RotateX($degree){-webkit-transform: rotateX($degree);-moz-transform: rotateX($degree);-ms-transform: rotateX($degree);-o-transform: rotateX($degree);transform: rotateX($degree);}
-
-@mixin RotateY($degree){
-    -webkit-transform: rotateY($degree);
-    -moz-transform: rotateY($degree);
-    -o-transform: rotateY($degree);
-    -ms-transform: rotateY($degree);
-    transform: rotateY($degree);
-}
-
-@mixin backfaceVisibility($value){-webkit-backface-visibility: $value;-moz-backface-visibility: $value;;-ms-backface-visibility: $value;backface-visibility: $value}
-
-@mixin rotateZwithScale($deg,$scale){-webkit-transform: rotateZ($deg) scale($scale);transform: rotateZ($deg) scale($scale);-moz-transform: rotateZ($deg) scale($scale);-ms-transform: rotateZ($deg) scale($scale);-o-transform: rotateZ($deg) scale($scale);}
-
-@mixin rotateXrotateZscale($xdeg,$zdeg,$scale){-webkit-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);-moz-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);-ms-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);-o-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);
-}
-
-@mixin scale($scale){transform: scale($scale);-webkit-transform: scale($scale);-moz-transform: scale($scale);-ms-transform: scale($scale);-o-transform: scale($scale);}
-
-@mixin scaleWtihRotateX($scale,$xdeg){-webkit-transform: scale($scale) rotateX($xdeg);transform: scale($scale) rotateX($xdeg);-moz-transform: scale($scale) rotateX($xdeg);-o-transform: scale($scale) rotateX($xdeg);}
-@mixin animation($animationName,$animationDuration){
-  -webkit-animation:$animationName $animationDuration forwards;
-  -moz-animation:$animationName $animationDuration forwards;
-  -ms-animation:$animationName $animationDuration forwards;
-  -o-animation:$animationName $animationDuration forwards;
-  animation:$animationName $animationDuration forwards;
-}
+@import "mixin.scss";
+@import "chipAnimation.scss";
 
 
 body{background-color:black;}
@@ -184,17 +131,21 @@ $chipIndex : 0;
 .chipIcon.flyChip{position:absolute; height:91px; border-radius: 57px;}
 .flyChip.startPos{left: 592px;top: 627px;@include scale(0.7);}
 .flyChip.topEndPos{left:357px;top: 296px;}
+.flyChip.topEndBottom{top: 436px; left: 329px; @include scale(0.65);}
 .flyChip.flying{
    @include animation(putChipOnDeskTop,1s);
 }
-
-@-webkit-keyframes putChipOnDeskTop{
-    0%{left: 592px;top: 627px;@include scale(0.7);}
-	50%{top: 200px; left: 400px; box-shadow: -47px 99px 30px rgba(0,0,0,0.5); @include scale(0.65);}
-	100%{left:357px;top: 296px;}
+.flyChip.flyingBottom{
+   @include animation(putChipOnDeskBottom,0.7s);  
 }
 
-
+.flyChip.chipDisappear{
+   @include transition(all,0.5s,ease-in-out);
+   @include scale(0.7);
+   top: 559px !important;
+   left: 596px;
+   opacity:0;
+}
 
 
 .chipIcon.active{
@@ -223,6 +174,7 @@ font-weight: bold;
 top: 220px;
 position: relative;
 left: 71px;}
+
 .controllIcon.hit{background-position:-797px 0px;left: 882px;
 top: 525px;}
 .controllIcon.hit:after{

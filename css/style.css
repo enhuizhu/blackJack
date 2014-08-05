@@ -1,3 +1,258 @@
+@-webkit-keyframes putChipOnDeskTop {
+  0% {
+    left: 592px;
+    top: 627px;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  50% {
+    top: 200px;
+    left: 400px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); }
+
+  100% {
+    left: 357px;
+    top: 296px; } }
+@-moz-keyframes putChipOnDeskTop {
+  0% {
+    left: 592px;
+    top: 627px;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  50% {
+    top: 200px;
+    left: 400px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); }
+
+  100% {
+    left: 357px;
+    top: 296px; } }
+@-ms-keyframes putChipOnDeskTop {
+  0% {
+    left: 592px;
+    top: 627px;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  50% {
+    top: 200px;
+    left: 400px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); }
+
+  100% {
+    left: 357px;
+    top: 296px; } }
+@-o-keyframes putChipOnDeskTop {
+  0% {
+    left: 592px;
+    top: 627px;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  50% {
+    top: 200px;
+    left: 400px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); }
+
+  100% {
+    left: 357px;
+    top: 296px; } }
+@keyframes putChipOnDeskTop {
+  0% {
+    left: 592px;
+    top: 627px;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  50% {
+    top: 200px;
+    left: 400px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); }
+
+  100% {
+    left: 357px;
+    top: 296px; } }
+@-webkit-keyframes putChipOnDeskBottom {
+  0% {
+    left: 592px;
+    top: 627px;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  50% {
+    top: 440px;
+    left: 350px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  100% {
+    top: 436px;
+    left: 329px;
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); } }
+@-moz-keyframes putChipOnDeskBottom {
+  0% {
+    left: 592px;
+    top: 627px;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  50% {
+    top: 440px;
+    left: 350px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  100% {
+    top: 436px;
+    left: 329px;
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); } }
+@-ms-keyframes putChipOnDeskBottom {
+  0% {
+    left: 592px;
+    top: 627px;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  50% {
+    top: 440px;
+    left: 350px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  100% {
+    top: 436px;
+    left: 329px;
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); } }
+@-o-keyframes putChipOnDeskBottom {
+  0% {
+    left: 592px;
+    top: 627px;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  50% {
+    top: 440px;
+    left: 350px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  100% {
+    top: 436px;
+    left: 329px;
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); } }
+@keyframes putChipOnDeskBottom {
+  0% {
+    left: 592px;
+    top: 627px;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  50% {
+    top: 440px;
+    left: 350px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    -o-transform: scale(0.7); }
+
+  100% {
+    top: 436px;
+    left: 329px;
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); } }
 body {
   background-color: black; }
 
@@ -236,6 +491,15 @@ body {
   left: 357px;
   top: 296px; }
 
+.flyChip.topEndBottom {
+  top: 436px;
+  left: 329px;
+  transform: scale(0.65);
+  -webkit-transform: scale(0.65);
+  -moz-transform: scale(0.65);
+  -ms-transform: scale(0.65);
+  -o-transform: scale(0.65); }
+
 .flyChip.flying {
   -webkit-animation: putChipOnDeskTop 1s forwards;
   -moz-animation: putChipOnDeskTop 1s forwards;
@@ -243,29 +507,28 @@ body {
   -o-animation: putChipOnDeskTop 1s forwards;
   animation: putChipOnDeskTop 1s forwards; }
 
-@-webkit-keyframes putChipOnDeskTop {
-  0% {
-    left: 592px;
-    top: 627px;
-    transform: scale(0.7);
-    -webkit-transform: scale(0.7);
-    -moz-transform: scale(0.7);
-    -ms-transform: scale(0.7);
-    -o-transform: scale(0.7); }
+.flyChip.flyingBottom {
+  -webkit-animation: putChipOnDeskBottom 0.7s forwards;
+  -moz-animation: putChipOnDeskBottom 0.7s forwards;
+  -ms-animation: putChipOnDeskBottom 0.7s forwards;
+  -o-animation: putChipOnDeskBottom 0.7s forwards;
+  animation: putChipOnDeskBottom 0.7s forwards; }
 
-  50% {
-    top: 200px;
-    left: 400px;
-    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
-    transform: scale(0.65);
-    -webkit-transform: scale(0.65);
-    -moz-transform: scale(0.65);
-    -ms-transform: scale(0.65);
-    -o-transform: scale(0.65); }
+.flyChip.chipDisappear {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  transform: scale(0.7);
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  -o-transform: scale(0.7);
+  top: 559px !important;
+  left: 596px;
+  opacity: 0; }
 
-  100% {
-    left: 357px;
-    top: 296px; } }
 .chipIcon.active {
   transform: scale(0.7);
   -webkit-transform: scale(0.7);

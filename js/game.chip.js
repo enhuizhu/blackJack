@@ -7,17 +7,19 @@ game.chip={
    /**
    * function to put regular chip on the table
    **/
-   putRegularChip:function(chipIndex,chipValue){ 
+   putRegularChip:function(chipIndex,chipValue,position){ 
       
 	  var chipClass=this.getChipDomClass(chipValue);
 	  this.generateFlyingChipDom(chipClass);
       
-	  jQuery("#flyChip").addClass("flying");
+	  var extraClass=position=="top"?"flying":"flyingBottom";
+	  var finalClass=position=="top"?"topEndPos":"topEndBottom";
+	  jQuery("#flyChip").addClass(extraClass);
 	  /**
 	  * add transition end event to the fly chip
 	  **/
 	  jQuery("#flyChip").bind(animationEnd,function(){
-	      jQuery(this).removeClass("flying").addClass("topEndPos");
+	      jQuery(this).removeClass(extraClass).addClass(finalClass);
 		  /**
 		  * according to its index value should chnage its y position
 		  **/
@@ -30,6 +32,17 @@ game.chip={
 	  });
    },
    
+   /**
+   * function to make chip disappear
+   **/
+   makeChipDisppear:function(position){
+      var selector=position=="top"?".topEndPos":".topEndBottom";
+	  jQuery(selector).addClass("chipDisappear");
+	  jQuery(selector).bind(transitionEnd,function(){
+	    jQuery(this).remove();
+	  });
+	},
+  
    /**
    * funciton to generate the dom of flying dom
    **/
