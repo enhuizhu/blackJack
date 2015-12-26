@@ -1,15 +1,22 @@
 @mixin perspective($distance){
-perspective: $distance;
--webkit-perspective: $distance;
--moz-perspective: $distance;
--ms-perspective: $distance;
+    perspective: $distance;
+    -webkit-perspective: $distance;
+    -moz-perspective: $distance;
+    -ms-perspective: $distance;
 }
 
 @mixin transformPerspective($distance){
     -ms-transform: perspective($distance);
     -moz-transform: perspective($distance);
 }
-@mixin transfromStyle(){-moz-transform-style: preserve-3d;-ms-transform-style: preserve-3d;-webkit-transform-style: preserve-3d;-o-transform-style: preserve-3d;transform-style: preserve-3d;}
+
+@mixin transfromStyle(){
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
 
 @mixin transition($property,$time,$animationType){
  @if($property=="" and $animationType==""){
@@ -19,12 +26,21 @@ perspective: $distance;
      -o-transition:$time;
      transition:$time;
  }@else{
-    -webkit-transition:$property $time $animationType;-moz-transition:$property $time $animationType;-ms-transition:$property $time $animationType;-o-transition:$property $time $animationType;transition:$property $time $animationType; 
+    -webkit-transition:$property $time $animationType;
+    -moz-transition:$property $time $animationType;
+    -ms-transition:$property $time $animationType;
+    -o-transition:$property $time $animationType;
+    transition:$property $time $animationType; 
  }
-
 }
 
-@mixin RotateX($degree){-webkit-transform: rotateX($degree);-moz-transform: rotateX($degree);-ms-transform: rotateX($degree);-o-transform: rotateX($degree);transform: rotateX($degree);}
+@mixin RotateX($degree){
+  -webkit-transform: rotateX($degree);
+  -moz-transform: rotateX($degree);
+  -ms-transform: rotateX($degree);
+  -o-transform: rotateX($degree);
+  transform: rotateX($degree);
+}
 
 @mixin RotateY($degree){
     -webkit-transform: rotateY($degree);
@@ -34,16 +50,52 @@ perspective: $distance;
     transform: rotateY($degree);
 }
 
-@mixin backfaceVisibility($value){-webkit-backface-visibility: $value;-moz-backface-visibility: $value;;-ms-backface-visibility: $value;backface-visibility: $value}
-
-@mixin rotateZwithScale($deg,$scale){-webkit-transform: rotateZ($deg) scale($scale);transform: rotateZ($deg) scale($scale);-moz-transform: rotateZ($deg) scale($scale);-ms-transform: rotateZ($deg) scale($scale);-o-transform: rotateZ($deg) scale($scale);}
-
-@mixin rotateXrotateZscale($xdeg,$zdeg,$scale){-webkit-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);-moz-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);-ms-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);-o-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);
+@mixin backfaceVisibility($value){
+  -webkit-backface-visibility: $value;
+  -moz-backface-visibility: $value;
+  -ms-backface-visibility: $value;
+  backface-visibility: $value;
 }
 
-@mixin scale($scale){transform: scale($scale);-webkit-transform: scale($scale);-moz-transform: scale($scale);-ms-transform: scale($scale);-o-transform: scale($scale);}
+@mixin rotateZwithScale($deg,$scale){
+  -webkit-transform: rotateZ($deg) scale($scale);
+  transform: rotateZ($deg) scale($scale);
+  -moz-transform: rotateZ($deg) scale($scale);
+  -ms-transform: rotateZ($deg) scale($scale);
+  -o-transform: rotateZ($deg) scale($scale);
+}
 
-@mixin scaleWtihRotateX($scale,$xdeg){-webkit-transform: scale($scale) rotateX($xdeg);transform: scale($scale) rotateX($xdeg);-moz-transform: scale($scale) rotateX($xdeg);-o-transform: scale($scale) rotateX($xdeg);}
+@mixin rotateXrotateZscale($xdeg,$zdeg,$scale){
+    -webkit-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);
+    transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);
+    -moz-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);
+    -ms-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);
+    -o-transform: rotateZ($zdeg) rotateX($xdeg) scale($scale);
+}
+
+@mixin rotateXrotateYrotateZscale($xdeg,$ydeg,$zdeg,$scale){
+    transform: rotateZ($zdeg) rotateY($ydeg) rotateX($xdeg) scale($scale);
+    -webkit-transform: rotateZ($zdeg) rotateY($ydeg) rotateX($xdeg) scale($scale);
+    -moz-transform: rotateZ($zdeg) rotateY($ydeg) rotateX($xdeg) scale($scale);
+    -ms-transform: rotateZ($zdeg) rotateY($ydeg) rotateX($xdeg) scale($scale);
+    -o-transform: rotateZ($zdeg) rotateY($ydeg) rotateX($xdeg) scale($scale);
+}
+
+@mixin scale($scale){
+  transform: scale($scale);
+  -webkit-transform: scale($scale);
+  -moz-transform: scale($scale);
+  -ms-transform: scale($scale);
+  -o-transform: scale($scale);
+}
+
+@mixin scaleWtihRotateX($scale,$xdeg){
+  -webkit-transform: scale($scale) rotateX($xdeg);
+  transform: scale($scale) rotateX($xdeg);
+  -moz-transform: scale($scale) rotateX($xdeg);
+  -o-transform: scale($scale) rotateX($xdeg);
+}
+
 @mixin animation($animationName,$animationDuration){
   -webkit-animation:$animationName $animationDuration forwards;
   -moz-animation:$animationName $animationDuration forwards;

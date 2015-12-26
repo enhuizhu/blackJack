@@ -289,30 +289,33 @@ body {
   -ms-transform: rotateX(5deg);
   -o-transform: rotateX(5deg);
   transform: rotateX(5deg); }
-
-.flip-container.hover .back {
-  -webkit-transform: rotateY(0deg);
-  -moz-transform: rotateY(0deg);
-  -o-transform: rotateY(0deg);
-  -ms-transform: rotateY(0deg);
-  transform: rotateY(0deg); }
-
-.flip-container.hover .front {
-  -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
-  -o-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
-  transform: rotateY(180deg);
-  border: 1px solid #ccc;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out; }
-
-.flip-container, .front, .back {
-  width: 257px;
-  height: 360px; }
+  .flip-container.userFirtCard {
+    -webkit-transform: rotateZ(0deg) rotateX(19deg) scale(0.5);
+    transform: rotateZ(0deg) rotateX(19deg) scale(0.5);
+    -moz-transform: rotateZ(0deg) rotateX(19deg) scale(0.5);
+    -ms-transform: rotateZ(0deg) rotateX(19deg) scale(0.5);
+    -o-transform: rotateZ(0deg) rotateX(19deg) scale(0.5); }
+  .flip-container .front, .flip-container .back {
+    width: 257px;
+    height: 360px; }
+  .flip-container.hover .back {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    -o-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    transform: rotateY(0deg); }
+  .flip-container.hover .front {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    border: 1px solid #ccc;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out; }
 
 .flipper {
   -webkit-transition: 0.6s;
@@ -367,8 +370,161 @@ body {
 /**
 * css for all the card
 **/
-.bh1 {
+.bt1 {
   background-position: -4px 0px; }
+
+.rt1 {
+  background-position: -269px 0px; }
+
+.rs1 {
+  background-position: -534px 0px; }
+
+.bm1 {
+  background-position: -799px 0px; }
+
+.bt13 {
+  background-position: -1064px 0px; }
+
+.rt13 {
+  background-position: -1329px 0px; }
+
+.rs13 {
+  background-position: -1594px 0px; }
+
+.bm13 {
+  background-position: -1859px 0px; }
+
+.bt12 {
+  background-position: -2124px 0px; }
+
+.rt12 {
+  background-position: -2389px 0px; }
+
+.rs12 {
+  background-position: -2654px 0px; }
+
+.bm12 {
+  background-position: -2919px 0px; }
+
+.bt11 {
+  background-position: -3184px 0px; }
+
+.rt11 {
+  background-position: -3449px 0px; }
+
+.rs11 {
+  background-position: -3714px 0px; }
+
+.bm11 {
+  background-position: -3979px 0px; }
+
+.bt10 {
+  background-position: -4244px 0px; }
+
+.rt10 {
+  background-position: -4509px 0px; }
+
+.rs10 {
+  background-position: -4774px 0px; }
+
+.bm10 {
+  background-position: -5039px 0px; }
+
+.bt9 {
+  background-position: -5304px 0px; }
+
+.rt9 {
+  background-position: -5569px 0px; }
+
+.rs9 {
+  background-position: -5834px 0px; }
+
+.bm9 {
+  background-position: -6099px 0px; }
+
+.bt8 {
+  background-position: -6364px 0px; }
+
+.rt8 {
+  background-position: -6629px 0px; }
+
+.rs8 {
+  background-position: -6894px 0px; }
+
+.bm8 {
+  background-position: -7159px 0px; }
+
+.bt7 {
+  background-position: -7424px 0px; }
+
+.rt7 {
+  background-position: -7689px 0px; }
+
+.rs7 {
+  background-position: -7954px 0px; }
+
+.bm7 {
+  background-position: -8219px 0px; }
+
+.bt6 {
+  background-position: -8484px 0px; }
+
+.rt6 {
+  background-position: -8749px 0px; }
+
+.rs6 {
+  background-position: -9014px 0px; }
+
+.bm6 {
+  background-position: -9279px 0px; }
+
+.bt5 {
+  background-position: -9544px 0px; }
+
+.rt5 {
+  background-position: -9809px 0px; }
+
+.rs5 {
+  background-position: -10074px 0px; }
+
+.bm5 {
+  background-position: -10339px 0px; }
+
+.bt4 {
+  background-position: -10604px 0px; }
+
+.rt4 {
+  background-position: -10869px 0px; }
+
+.rs4 {
+  background-position: -11134px 0px; }
+
+.bm4 {
+  background-position: -11399px 0px; }
+
+.bt3 {
+  background-position: -11664px 0px; }
+
+.rt3 {
+  background-position: -11929px 0px; }
+
+.rs3 {
+  background-position: -12194px 0px; }
+
+.bm3 {
+  background-position: -12459px 0px; }
+
+.bt2 {
+  background-position: -12724px 0px; }
+
+.rt2 {
+  background-position: -12989px 0px; }
+
+.rs2 {
+  background-position: -13254px 0px; }
+
+.bm2 {
+  background-position: -13519px 0px; }
 
 /**
 * css for the card when the card still in the stock
@@ -380,8 +536,8 @@ body {
   -ms-transform: rotateZ(-70deg) scale(0.45);
   -o-transform: rotateZ(-70deg) scale(0.45);
   position: absolute;
-  left: 899PX;
-  top: 65px; }
+  left: 936px;
+  top: 263px; }
 
 /**
 * css when the user get the card
@@ -401,14 +557,21 @@ body {
   -o-transform: rotateZ(0deg) rotateX(34deg) scale(0.4); }
 
 .flip-container.disapppear {
-  left: 24px !important;
-  top: 51px !important;
+  left: 125px !important;
+  top: 169px !important;
   opacity: 0;
   -webkit-transform: rotateZ(25deg) rotateX(54deg) scale(0.4);
   transform: rotateZ(25deg) rotateX(54deg) scale(0.4);
   -moz-transform: rotateZ(25deg) rotateX(54deg) scale(0.4);
   -ms-transform: rotateZ(25deg) rotateX(54deg) scale(0.4);
-  -o-transform: rotateZ(25deg) rotateX(54deg) scale(0.4); }
+  -o-transform: rotateZ(25deg) rotateX(54deg) scale(0.4);
+  /*@include rotateXrotateYrotateZscale(54deg, 45deg, 25deg, 0.4);*/ }
+  .flip-container.disapppear.hover .back {
+    -webkit-transform: rotateY(-15deg);
+    -moz-transform: rotateY(-15deg);
+    -o-transform: rotateY(-15deg);
+    -ms-transform: rotateY(-15deg);
+    transform: rotateY(-15deg); }
 
 /**
 * css for the chip list
@@ -561,45 +724,39 @@ body {
   -moz-transform: scale(0.4);
   -ms-transform: scale(0.4);
   -o-transform: scale(0.4); }
-
-.controllIcon.newGame {
-  background-position: 0px 0px;
-  left: 982px;
-  top: 425px; }
-
-.controllIcon.newGame:after {
-  content: "NEW GAME";
-  color: white;
-  font-size: 22px;
-  font-weight: bold;
-  top: 220px;
-  position: relative;
-  left: 71px; }
-
-.controllIcon.hit {
-  background-position: -797px 0px;
-  left: 882px;
-  top: 525px; }
-
-.controllIcon.hit:after {
-  content: "HIT";
-  color: white;
-  font-size: 28px;
-  font-weight: bold;
-  top: 216px;
-  position: relative;
-  left: 110px; }
-
-.controllIcon.double {
-  background-position: -1331px 0px;
-  left: 74px;
-  top: 514px; }
-
-.controllIcon.double:after {
-  content: "DOUBLE";
-  color: white;
-  font-size: 28px;
-  font-weight: bold;
-  top: 216px;
-  position: relative;
-  left: 79px; }
+  .controllIcon.newGame {
+    background-position: 0px 0px;
+    left: 982px;
+    top: 425px; }
+    .controllIcon.newGame:after {
+      content: "NEW GAME";
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      top: 220px;
+      position: relative;
+      left: 71px; }
+  .controllIcon.hit {
+    background-position: -797px 0px;
+    left: 882px;
+    top: 525px; }
+    .controllIcon.hit:after {
+      content: "HIT";
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      top: 216px;
+      position: relative;
+      left: 110px; }
+  .controllIcon.double {
+    background-position: -1331px 0px;
+    left: 74px;
+    top: 514px; }
+    .controllIcon.double:after {
+      content: "DOUBLE";
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      top: 216px;
+      position: relative;
+      left: 79px; }

@@ -1,0 +1,8 @@
+{
+	"name": "black.jack",
+	"version": "0.0.0",
+	"dependencies": {
+		"express": "~4.13.3",
+		"socket.io": "~1.3.7"
+	}
+}

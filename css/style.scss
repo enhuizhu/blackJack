@@ -3,116 +3,165 @@ $chipWidth:115px;
 $chipsDistance:36px;
 $chipFiveX:-744px;
 $chipTopY:-8px;
+$cardDistance: 265px;
 
 @import "mixin.scss";
 @import "chipAnimation.scss";
 
 
-body{background-color:black;}
-.gameStage{width:1200px; height:800px; background-image:url("images/rocabee_blackjack_board_5.jpg"); background-repeat:no-repeat; position:relative; margin-left:auto; margin-right:auto;}
+body{
+	background-color:black;
+}
+.gameStage{
+	width:1200px; 
+	height:800px; 
+	background-image:url("images/rocabee_blackjack_board_5.jpg"); 
+	background-repeat:no-repeat; 
+	position:relative; 
+	margin-left:auto; 
+	margin-right:auto;
+}
 
 /* simple */
 .flip-container {
-@include perspective(1000);
-@include transformPerspective(1000px);
-@include transfromStyle();
-border: 1px solid #ccc;
-@include transition(all,0.5s,ease-in-out);
-@include RotateX(5deg);
+	@include perspective(1000);
+	@include transformPerspective(1000px);
+	@include transfromStyle();
+	border: 1px solid #ccc;
+	@include transition(all,0.5s,ease-in-out);
+	@include RotateX(5deg);
+	
+	&.userFirtCard{
+		@include rotateXrotateZscale(19deg,0deg,0.5);
+	}
+	
+	.front, .back {
+		width: 257px;
+		height: 360px;
+	}
+
+	&.hover {
+		.back {
+		    @include RotateY(0deg);
+		}
+
+		.front {
+			@include RotateY(180deg);
+			border: 1px solid #ccc;
+			@include transition(all,0.5s,ease-in-out);
+		}
+	}
 }
 
-.flip-container.hover .back {
-    @include RotateY(0deg);
-}
-
-.flip-container.hover .front {
-@include RotateY(180deg);
-border: 1px solid #ccc;
-@include transition(all,0.5s,ease-in-out);
-}
-
-.flip-container, .front, .back {
-width: 257px;
-height: 360px;
-}
 
 .flipper {
-@include transition("",0.6s,"");
-@include transfromStyle();
-position: relative;
+	@include transition("",0.6s,"");
+	@include transfromStyle();
+	position: relative;
 }
 
 .front, .back {
-@include backfaceVisibility(hidden);	   
-@include transition("",0.6s,"");
-@include transfromStyle();
-position: absolute;
-top: 0;
-left: 0;
-background-image:url("images/generic_cards_set04_265x360size_shadow_optimized.png");
-background-repeat:no-repeat;
+	@include backfaceVisibility(hidden);	   
+	@include transition("",0.6s,"");
+	@include transfromStyle();
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-image:url("images/generic_cards_set04_265x360size_shadow_optimized.png");
+	background-repeat:no-repeat;
 }
 
 .front {
-@include RotateY(0deg);
-z-index: 2;
-background-position:-14050px 0px;
+	@include RotateY(0deg);
+	z-index: 2;
+	background-position:-14050px 0px;
 }
 
 .back {
-@include RotateY(-180deg);
+	@include RotateY(-180deg);
 }
 
 
 /**
 * css for all the card
 **/
-.bh1{background-position:-4px 0px;}
-
+$firstIndex: 0;
+@each $number in 1,13,12,11,10,9,8,7,6,5,4,3,2 {
+	$secondIndex: 0;
+	@each $prefix in bt,rt,rs,bm {
+		.#{$prefix}#{$number} {
+			$posX: - ($firstIndex * 4 + $secondIndex) * $cardDistance - 4;
+			$posY: 0;
+			background-position:#{$posX} #{$posY}px;
+		}
+		$secondIndex: $secondIndex + 1;
+	}
+$firstIndex: $firstIndex + 1;
+}
 /**
 * css for the card when the card still in the stock
 **/
 .cardInStock{
-@include rotateZwithScale(-70deg,0.45);
-position: absolute;
-left: 899PX;
-top: 65px;
+	@include rotateZwithScale(-70deg,0.45);
+	position: absolute;
+	left: 936px;
+	top: 263px;
 }
 
 /**
 * css when the user get the card
 **/
 .flip-container.userFirtCard{
-@include rotateXrotateZscale(19deg,0deg,0.5);
+	@include rotateXrotateZscale(19deg,0deg,0.5);
 }
 
 .flip-container.computerCard{
-@include rotateXrotateZscale(34deg,0deg,0.4);
+	@include rotateXrotateZscale(34deg,0deg,0.4);
 }
 
 .flip-container.disapppear{
-left:24px !important;
-top:51px !important;
-opacity:0;
-@include rotateXrotateZscale(54deg,25deg,0.4);
+	left:125px !important;
+	top:169px !important;
+	opacity:0;
+	@include rotateXrotateZscale(54deg,25deg,0.4);
+	/*@include rotateXrotateYrotateZscale(54deg, 45deg, 25deg, 0.4);*/
+	&.hover .back{
+		@include RotateY(-15deg);
+	}
 }
 
 /**
 * css for the chip list
 **/
-.clear{clear:both;}
-.chipContainer{position:absolute; bottom:0px; text-align:center; border:solid 1px green; width:100%;}
-.chipList{float:left; list-style:none;}
-.chipIcon{background-image: url(images/chips_set_rocabee3_general_optimized.png);
-background-repeat: no-repeat;
-width: 119px;
-height: 111px;
-display: inline-block;
-@include scale(0.55);
-margin-left: -54px;
+.clear{
+	clear:both;
 }
 
-.chipIcon.fristLeft{margin-left: 4px;}
+.chipContainer{
+	position: absolute; 
+	bottom: 0px; 
+	text-align: center; 
+	border: solid 1px green; 
+	width: 100%;
+}
+
+.chipList{
+	float:left; 
+	list-style:none;
+}
+.chipIcon{
+	background-image: url(images/chips_set_rocabee3_general_optimized.png);
+	background-repeat: no-repeat;
+	width: 119px;
+	height: 111px;
+	display: inline-block;
+	@include scale(0.55);
+	margin-left: -54px;
+}
+
+.chipIcon.fristLeft{
+	margin-left: 4px;
+}
 
 $chipIndex : 0;
 
@@ -125,16 +174,37 @@ $chipIndex : 0;
 	.chipIcon.betChip#{$betChip}{
 	    background-position:$chipFiveX - ($chipWidth+$chipsDistance)*$chipIndex $chipTopY - $chipVerticalDistance;
 	}
+	
 	$chipIndex : $chipIndex+1;
 }
 
-.chipIcon.flyChip{position:absolute; height:91px; border-radius: 57px;}
-.flyChip.startPos{left: 592px;top: 627px;@include scale(0.7);}
-.flyChip.topEndPos{left:357px;top: 296px;}
-.flyChip.topEndBottom{top: 436px; left: 329px; @include scale(0.65);}
+.chipIcon.flyChip{
+	position: absolute;
+	height: 91px; 
+	border-radius: 57px;
+}
+
+.flyChip.startPos{
+	left: 592px;
+	top: 627px;
+	@include scale(0.7);
+}
+
+.flyChip.topEndPos{
+	left:357px;
+	top: 296px;
+}
+
+.flyChip.topEndBottom{
+	top: 436px; 
+	left: 329px; 
+	@include scale(0.65);
+}
+
 .flyChip.flying{
    @include animation(putChipOnDeskTop,1s);
 }
+
 .flyChip.flyingBottom{
    @include animation(putChipOnDeskBottom,0.7s);  
 }
@@ -147,56 +217,76 @@ $chipIndex : 0;
    opacity:0;
 }
 
-
 .chipIcon.active{
-@include scale(0.7);
-margin-left: -39px;
-margin-right: 14px;}
-.chipIcon.betPosition{position: absolute;
-left: 359px;
-top: 290px;
-@include scaleWtihRotateX(0.5,24deg);
+	@include scale(0.7);
+	margin-left: -39px;
+	margin-right: 14px;
+}
+
+.chipIcon.betPosition{
+	position: absolute;
+	left: 359px;
+	top: 290px;
+	@include scaleWtihRotateX(0.5,24deg);
 }
 
 
 /**
 * css for controll icon
 **/
-.controllIcon{width:264px;height:267px; background-image:url(images/rocabee_ingame_button_set_052_optimized.png); background-repeat:no-repeat; position:absolute; 
-@include scale(0.4);}
+.controllIcon{
+	width:264px;
+	height:267px; 
+	background-image:url(images/rocabee_ingame_button_set_052_optimized.png);
+	background-repeat:no-repeat; 
+	position:absolute; 
+	@include scale(0.4);
 
-.controllIcon.newGame{background-position:0px 0px; left: 982px;
-top: 425px;}
-.controllIcon.newGame:after{content: "NEW GAME";
-color: white;
-font-size: 22px;
-font-weight: bold;
-top: 220px;
-position: relative;
-left: 71px;}
+	&.newGame {
+		background-position:0px 0px; 
+		left: 982px;
+		top: 425px;
 
-.controllIcon.hit{background-position:-797px 0px;left: 882px;
-top: 525px;}
-.controllIcon.hit:after{
-content: "HIT";
-color: white;
-font-size: 28px;
-font-weight: bold;
-top: 216px;
-position: relative;
-left: 110px;
-}
+		&:after {
+			content: "NEW GAME";
+			color: white;
+			font-size: 22px;
+			font-weight: bold;
+			top: 220px;
+			position: relative;
+			left: 71px;
+		};
+	}
 
-.controllIcon.double{
-background-position: -1331px 0px;
-left: 74px;
-top: 514px;}
-.controllIcon.double:after{
-content: "DOUBLE";
-color: white;
-font-size: 28px;
-font-weight: bold;
-top: 216px;
-position: relative;
-left: 79px;
+	&.hit {
+		background-position:-797px 0px;
+		left: 882px;
+		top: 525px;		
+
+		&:after{
+			content: "HIT";
+			color: white;
+			font-size: 28px;
+			font-weight: bold;
+			top: 216px;
+			position: relative;
+			left: 110px;
+		};
+	}
+
+	&.double {
+		background-position: -1331px 0px;
+		left: 74px;
+		top: 514px;
+
+		&:after{
+			content: "DOUBLE";
+			color: white;
+			font-size: 28px;
+			font-weight: bold;
+			top: 216px;
+			position: relative;
+			left: 79px;
+		};		
+	}
 }
