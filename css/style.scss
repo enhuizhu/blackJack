@@ -10,6 +10,7 @@ $cardDistance: 265px;
 
 
 body{
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	background-color:black;
 }
 .gameStage{
@@ -150,6 +151,7 @@ $firstIndex: $firstIndex + 1;
 	list-style:none;
 }
 .chipIcon{
+	cursor: pointer;
 	background-image: url(images/chips_set_rocabee3_general_optimized.png);
 	background-repeat: no-repeat;
 	width: 119px;
@@ -235,58 +237,129 @@ $chipIndex : 0;
 * css for controll icon
 **/
 .controllIcon{
+	$spriteSheetHeight: 264px;
 	width:264px;
 	height:267px; 
 	background-image:url(images/rocabee_ingame_button_set_052_optimized.png);
 	background-repeat:no-repeat; 
+	cursor: pointer;
 	position:absolute; 
 	@include scale(0.4);
+	
+	$posx: 0px;
+	$fontSize: 22px;
+	$posLeft: 982px;
+	$posTop: 425px;
+	$textTop: 220px;
+	$textLeft: 71px;
+	$content: "NEW GAME";
+	
+	@each $className in newGame,hit,deal,rebet,double,undo,stand,clearChip,doubleRebet{
+		
+		@if $className == newGame {
+			$posx: -2px;
+			$fontSize: 22px;
+			$posLeft: 982px;
+			$posTop: 425px;
+			$textTop: 220px;
+			$textLeft: 71px;
+			$content: "NEW GAME";
+		} @else if $className == hit {
+			$posx: -800px;
+			$fontSize: 28px;
+			$posLeft: 882px;
+			$posTop: 525px;
+			$textTop: 216px;
+			$textLeft: 110px;
+			$content: "HIT";
+		} @else if $className == deal {
+			$posx: -2px;
+			$fontSize: 25px;
+			$posLeft: 882px;
+			$posTop: 525px;
+			$textTop: 216px;
+			$textLeft: 52px;
+			$content: "DEAL CARDS";
+		} @else if $className == rebet {
+			$posx: -2130px;
+			$fontSize: 22px;
+			$posLeft: 882px;
+			$posTop: 525px;
+			$textTop: 218px;
+			$textLeft: 52px;
+			$content: "REBET & DEAL";
+		} @else if $className == double {
+			$posx: -1331px;
+			$fontSize: 28px;
+			$posLeft: 74px;
+			$posTop: 514px;
+			$textTop: 216px;
+			$textLeft: 76px;
+			$content: "DOUBLE";
+		} @else if $className == undo {
+			$posx: -533px;
+			$fontSize: 28px;
+			$posLeft: 982px;
+			$posTop: 425px;
+			$textTop: 216px;
+			$textLeft: 92px;
+			$content: "UNDO";
+		} @else if $className == stand {
+			$posx: -1066px;
+			$fontSize: 28px;
+			$posLeft: 982px;
+			$posTop: 425px;
+			$textTop: 216px;
+			$textLeft: 89px;
+			$content: "STAND";
+		} @else if $className == clearChip {
+			$posx: -267px;
+			$fontSize: 22px;
+			$posLeft: 74px;
+			$posTop: 514px;
+			$textTop: 216px;
+			$textLeft: 63px;
+			$content: "CLEAR CHIPS";
+		} @else if $className == doubleRebet {
+			$posx: -2396px;
+			$fontSize: 20px;
+			$posLeft: 74px;
+			$posTop: 514px;
+			$textTop: 216px;
+			$textLeft: 45px;
+			$content: "REBET 2X & DEAL";
+		}
 
-	&.newGame {
-		background-position:0px 0px; 
-		left: 982px;
-		top: 425px;
+		&.#{$className}{
+			background-position:$posx 0px; 
+			left: $posLeft;
+			top: $posTop;
 
-		&:after {
-			content: "NEW GAME";
-			color: white;
-			font-size: 22px;
-			font-weight: bold;
-			top: 220px;
-			position: relative;
-			left: 71px;
-		};
+			&:after {
+				content: $content;
+				color: white;
+				font-size: $fontSize;
+				font-weight: bold;
+				top: $textTop;
+				position: relative;
+				left: $textLeft;
+			};
+
+			&:hover{
+				background-position:$posx -#{$spriteSheetHeight};
+				&:after{
+					top:$textTop - 13;
+				}; 
+			};
+
+			&:active{
+				background-position:$posx -#{$spriteSheetHeight*2}; 
+				&:after{
+					top:$textTop;
+				};
+			};
+		}
 	}
+	
 
-	&.hit {
-		background-position:-797px 0px;
-		left: 882px;
-		top: 525px;		
-
-		&:after{
-			content: "HIT";
-			color: white;
-			font-size: 28px;
-			font-weight: bold;
-			top: 216px;
-			position: relative;
-			left: 110px;
-		};
-	}
-
-	&.double {
-		background-position: -1331px 0px;
-		left: 74px;
-		top: 514px;
-
-		&:after{
-			content: "DOUBLE";
-			color: white;
-			font-size: 28px;
-			font-weight: bold;
-			top: 216px;
-			position: relative;
-			left: 79px;
-		};		
-	}
 }

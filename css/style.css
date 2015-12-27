@@ -254,6 +254,7 @@
     -ms-transform: scale(0.65);
     -o-transform: scale(0.65); } }
 body {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   background-color: black; }
 
 .gameStage {
@@ -591,6 +592,7 @@ body {
   list-style: none; }
 
 .chipIcon {
+  cursor: pointer;
   background-image: url(images/chips_set_rocabee3_general_optimized.png);
   background-repeat: no-repeat;
   width: 119px;
@@ -718,6 +720,7 @@ body {
   height: 267px;
   background-image: url(images/rocabee_ingame_button_set_052_optimized.png);
   background-repeat: no-repeat;
+  cursor: pointer;
   position: absolute;
   transform: scale(0.4);
   -webkit-transform: scale(0.4);
@@ -725,7 +728,7 @@ body {
   -ms-transform: scale(0.4);
   -o-transform: scale(0.4); }
   .controllIcon.newGame {
-    background-position: 0px 0px;
+    background-position: -2px 0px;
     left: 982px;
     top: 425px; }
     .controllIcon.newGame:after {
@@ -736,8 +739,16 @@ body {
       top: 220px;
       position: relative;
       left: 71px; }
+    .controllIcon.newGame:hover {
+      background-position: -2px -264px; }
+      .controllIcon.newGame:hover:after {
+        top: 207px; }
+    .controllIcon.newGame:active {
+      background-position: -2px -528px; }
+      .controllIcon.newGame:active:after {
+        top: 220px; }
   .controllIcon.hit {
-    background-position: -797px 0px;
+    background-position: -800px 0px;
     left: 882px;
     top: 525px; }
     .controllIcon.hit:after {
@@ -748,6 +759,54 @@ body {
       top: 216px;
       position: relative;
       left: 110px; }
+    .controllIcon.hit:hover {
+      background-position: -800px -264px; }
+      .controllIcon.hit:hover:after {
+        top: 203px; }
+    .controllIcon.hit:active {
+      background-position: -800px -528px; }
+      .controllIcon.hit:active:after {
+        top: 216px; }
+  .controllIcon.deal {
+    background-position: -2px 0px;
+    left: 882px;
+    top: 525px; }
+    .controllIcon.deal:after {
+      content: "DEAL CARDS";
+      color: white;
+      font-size: 25px;
+      font-weight: bold;
+      top: 216px;
+      position: relative;
+      left: 52px; }
+    .controllIcon.deal:hover {
+      background-position: -2px -264px; }
+      .controllIcon.deal:hover:after {
+        top: 203px; }
+    .controllIcon.deal:active {
+      background-position: -2px -528px; }
+      .controllIcon.deal:active:after {
+        top: 216px; }
+  .controllIcon.rebet {
+    background-position: -2130px 0px;
+    left: 882px;
+    top: 525px; }
+    .controllIcon.rebet:after {
+      content: "REBET & DEAL";
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      top: 218px;
+      position: relative;
+      left: 52px; }
+    .controllIcon.rebet:hover {
+      background-position: -2130px -264px; }
+      .controllIcon.rebet:hover:after {
+        top: 205px; }
+    .controllIcon.rebet:active {
+      background-position: -2130px -528px; }
+      .controllIcon.rebet:active:after {
+        top: 218px; }
   .controllIcon.double {
     background-position: -1331px 0px;
     left: 74px;
@@ -759,4 +818,92 @@ body {
       font-weight: bold;
       top: 216px;
       position: relative;
-      left: 79px; }
+      left: 76px; }
+    .controllIcon.double:hover {
+      background-position: -1331px -264px; }
+      .controllIcon.double:hover:after {
+        top: 203px; }
+    .controllIcon.double:active {
+      background-position: -1331px -528px; }
+      .controllIcon.double:active:after {
+        top: 216px; }
+  .controllIcon.undo {
+    background-position: -533px 0px;
+    left: 982px;
+    top: 425px; }
+    .controllIcon.undo:after {
+      content: "UNDO";
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      top: 216px;
+      position: relative;
+      left: 92px; }
+    .controllIcon.undo:hover {
+      background-position: -533px -264px; }
+      .controllIcon.undo:hover:after {
+        top: 203px; }
+    .controllIcon.undo:active {
+      background-position: -533px -528px; }
+      .controllIcon.undo:active:after {
+        top: 216px; }
+  .controllIcon.stand {
+    background-position: -1066px 0px;
+    left: 982px;
+    top: 425px; }
+    .controllIcon.stand:after {
+      content: "STAND";
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      top: 216px;
+      position: relative;
+      left: 89px; }
+    .controllIcon.stand:hover {
+      background-position: -1066px -264px; }
+      .controllIcon.stand:hover:after {
+        top: 203px; }
+    .controllIcon.stand:active {
+      background-position: -1066px -528px; }
+      .controllIcon.stand:active:after {
+        top: 216px; }
+  .controllIcon.clearChip {
+    background-position: -267px 0px;
+    left: 74px;
+    top: 514px; }
+    .controllIcon.clearChip:after {
+      content: "CLEAR CHIPS";
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+      top: 216px;
+      position: relative;
+      left: 63px; }
+    .controllIcon.clearChip:hover {
+      background-position: -267px -264px; }
+      .controllIcon.clearChip:hover:after {
+        top: 203px; }
+    .controllIcon.clearChip:active {
+      background-position: -267px -528px; }
+      .controllIcon.clearChip:active:after {
+        top: 216px; }
+  .controllIcon.doubleRebet {
+    background-position: -2396px 0px;
+    left: 74px;
+    top: 514px; }
+    .controllIcon.doubleRebet:after {
+      content: "REBET 2X & DEAL";
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      top: 216px;
+      position: relative;
+      left: 45px; }
+    .controllIcon.doubleRebet:hover {
+      background-position: -2396px -264px; }
+      .controllIcon.doubleRebet:hover:after {
+        top: 203px; }
+    .controllIcon.doubleRebet:active {
+      background-position: -2396px -528px; }
+      .controllIcon.doubleRebet:active:after {
+        top: 216px; }

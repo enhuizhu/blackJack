@@ -5,6 +5,16 @@ game.chip={
    topChipHeightDis:8,
    
    /**
+   * all the initialation is here
+   **/
+   init: function () {
+   		this.bindEvents();
+   },
+
+   bindEvents: function() {
+   		console.info("bind events!");
+   },
+   /**
    * function to put regular chip on the table
    **/
    putRegularChip:function(chipIndex,chipValue,position){ 
@@ -76,3 +86,7 @@ game.chip={
 	 return false;
    }
 }
+
+jQuery(document).ready(function() {
+	game.chip.init();
+});
