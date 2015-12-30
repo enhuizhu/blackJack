@@ -5,12 +5,16 @@ game.cards={
    /**
    * varibale to trace user card number
    **/
-   userCardNumber:0,
+   playerCards: [],
    
+   bankerCards: [],
+
+   animationDelay: 500,
    /**
    * generate card for user
    **/
    generateUserCard:function(n, cardValue){
+       console.info("n, cardValue", n, cardValue);
        this.generateCardDom(n,"player",jQuery(".gameStage"), cardValue);
        
        var cardDom = jQuery("[data-playerCardNumber="+n+"]"),
@@ -82,7 +86,7 @@ game.cards={
 	/**
 	* function to make user card disappear
 	**/
-	makeUserCardsDisappear:function(who){
+	makeUserCardsDisappear: function(who) {
 	    /**
 		* should get all the user card dom
 		**/
@@ -95,7 +99,33 @@ game.cards={
 		    this.removeSinglCardDom(cardDom,i);	
 		}
 	},
-	 
+
+	sendoutPlayerCards: function(cards) {
+		var startIndex = this.playerCards.length + 1;
+		this.sendOutCards(startIndex, cards, "player");
+	},
+	
+	sendoutBankerCards: function(cards) {
+		var startIndex = this.bankerCards.length + 1;
+		this.sendOutCards(startIndex, cards, "computer");
+	},
+
+	sendOutCards: function(startIndex, cards, who) {
+		var that = this,
+			func = who == "player" ? "generateUserCard" : "generateComputerCard";
+
+		for (var i = 0; i < cards.length; i++) {
+			this.registerTimeout(that[func], this.animationDelay * i, [startIndex + i, cards[i]]);
+		};
+	},
+
+	registerTimeout: function(callBack, timeDelay, paramList) {
+		var that = this;
+		
+		setTimeout(function(){
+			callBack.apply(that, paramList);
+		}, timeDelay);
+	},
 	 
 	removeSinglCardDom:function(cardDom,n){
 	    var timeDistance = 100;

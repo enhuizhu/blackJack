@@ -3,6 +3,10 @@
 **/
 game.chip={
    topChipHeightDis:8,
+
+   currentChip: null,
+
+   chipArr: [],
    
    /**
    * all the initialation is here
@@ -12,8 +16,48 @@ game.chip={
    },
 
    bindEvents: function() {
-   		console.info("bind events!");
+   		jQuery(".chipIcon").bind("click", this.selectChip);
+   		jQuery("#chipPlacedArea").bind("click", this.placeChip);
    },
+
+   placeChip: function() {
+   		/**
+   		* should check if the current state is waiting for place bet
+   		**/
+   		if (game.state.currentState != game.state.list.WAITING_FOR_BET 
+   			&& game.state.currentState != game.state.list.PLACED_BET) {
+   				console.error("currentState is:", game.state.currentState);
+   				return false;
+   		};
+
+   		if (_.isEmpty(game.chip.currentChip)) {
+   			throw "current chip is emtpy!";
+   		};
+
+   		game.chip.chipArr.push(game.chip.currentChip);
+   		game.chip.putRegularChip(game.chip.chipArr.length, game.chip.currentChip, "top");
+   		/**
+   		* should send this infomation to node server
+   		**/
+   		game.socket.placedChip();
+   },
+
+   selectChip: function(){
+   		console.info("selectChip");
+   		/**
+   		* make other chip inactive
+   		**/
+   		jQuery(".chipIcon").removeClass("active");
+   		jQuery(this).addClass("active");
+
+   		var chipValue = jQuery(this).attr("data-chip");
+   		game.chip.currentChip = chipValue;
+   },
+
+   resetChipState: function() {
+   		this.chipNumber = 0;
+   		this.currentChip = null;
+   },	
    /**
    * function to put regular chip on the table
    **/
@@ -65,7 +109,7 @@ game.chip={
    * according to chip value return the dom class for the chip
    **/
    getChipDomClass:function(chipValue){
-      switch(chipValue){
+      switch(parseInt(chipValue)){
 	      case 5:
 		     return "betChipFive";
 			 break;

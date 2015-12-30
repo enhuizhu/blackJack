@@ -1,0 +1,18 @@
+{
+  "name": "blackJack",
+  "version": "0.0.0",
+  "homepage": "www.olmarket.co.uk",
+  "authors": [
+    "David Zhu"
+  ],
+  "description": "casino game",
+  "main": "index.php",
+  "keywords": [
+    "blackJack"
+  ],
+  "dependencies":{
+     "underscore":"~1.8.3",
+     "jQuery":"~2.1.4"
+  },
+  "license": "MIT"
+}

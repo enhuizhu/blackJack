@@ -21,6 +21,61 @@ body{
 	position:relative; 
 	margin-left:auto; 
 	margin-right:auto;
+	
+	.chip-placed-area {
+	    width: 180px;
+	    height: 126px;
+	    border: solid 1px black;
+	    position: absolute;
+	    top: 274px;
+	    left: 283px;	
+	}
+	/**
+	* only display new game button, even the chipcontainer should be hided
+	**/
+	&.new-game {
+		.chipContainer, .controllIcon {
+			display: none;
+		}
+
+		.newGame {
+			display: block;
+		}
+	}
+
+	&.placed-bet {
+		.controllIcon {
+			display: none;
+
+			&.deal, &.undo {
+				display: block;
+			}
+		}
+	}
+
+	&.deal {
+		.chipContainer {
+			display: none;
+		}
+
+		.controllIcon {
+			display: none;
+
+			&.hit, &.stand {
+				display: block;
+			}
+		}
+	}
+
+	&.waiting-for-bet{
+		.controllIcon {
+			display: none;
+		}
+
+		.chipContainer {
+			display: block;
+		}
+	}
 }
 
 /* simple */
@@ -360,6 +415,4 @@ $chipIndex : 0;
 			};
 		}
 	}
-	
-
 }
