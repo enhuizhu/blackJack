@@ -57,7 +57,9 @@ game.cards={
 		 * add animation end event to the card dom
 		 **/
          cardDom.bind(transitionEnd,function(){
-		     jQuery(this).addClass("hover");
+		     if (!_.isEmpty(cardValue)) {
+			     jQuery(this).addClass("hover");
+		     };
 		 });
 	   },100);
     },
@@ -107,6 +109,7 @@ game.cards={
 	
 	sendoutBankerCards: function(cards) {
 		var startIndex = this.bankerCards.length + 1;
+		console.info("value of startIndex is:", startIndex);
 		this.sendOutCards(startIndex, cards, "computer");
 	},
 
@@ -117,6 +120,18 @@ game.cards={
 		for (var i = 0; i < cards.length; i++) {
 			this.registerTimeout(that[func], this.animationDelay * i, [startIndex + i, cards[i]]);
 		};
+	},
+
+	addCards: function(cards, who) {
+		var newCards = cards.filter(function(v, k) {
+			return !_.isEmpty(v);
+		});
+
+		if (who == "player") {
+			this.playerCards = this.playerCards.concat(newCards);
+		}else{
+			this.bankerCards = this.bankerCards.concat(newCards);
+		}
 	},
 
 	registerTimeout: function(callBack, timeDelay, paramList) {

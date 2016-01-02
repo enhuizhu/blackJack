@@ -2,9 +2,13 @@
 * unit test for cards
 **/
 var cardObj = require("../modules/cards.js"),
-	cards = new cardObj();
+	cards = null;
 
 describe("test all the card function", function() {
+	beforeEach(function() {
+		cards = new cardObj();
+	});
+
 	it("test cards obj initial", function() {
 		expect(cards.newCards.length).toBe(52);
 	});
@@ -87,4 +91,58 @@ describe("test all the card function", function() {
 		expect(cards.sendOutCards(2).length).toBe(2);
 		expect(cards.newCards.length).toBe(50);
 	});
+
+	it("test total value of cards", function() {
+		expect(cards.getCardsTotalValue(["bt1","bt10"])).toBe(21);		
+		expect(cards.getCardsTotalValue(["bt2","bt10"])).toBe(12);		
+		expect(cards.getCardsTotalValue(["bt2","bt11"])).toBe(12);		
+		expect(cards.getCardsTotalValue(["bt2","bt12"])).toBe(12);		
+		expect(cards.getCardsTotalValue(["bt2","bt13"])).toBe(12);		
+		expect(cards.getCardsTotalValue(["bt10","bt13"])).toBe(20);		
+		expect(cards.getCardsTotalValue(["bt1","bt13"])).toBe(21);		
+		expect(cards.getCardsTotalValue(["bt1","bt13","bt13"])).toBe(21);		
+		expect(cards.getCardsTotalValue(["bt1","bt13","bt13","bt13"])).toBe(31);		
+	});
+
+	it("test banker hit or stand", function() {
+		expect(cards.bankerHitOrStand(11,20)).toBe(false);
+		expect(cards.bankerHitOrStand(11,11)).toBe(false);
+		expect(cards.bankerHitOrStand(15,10)).toBe(true);
+		expect(cards.bankerHitOrStand(10,10)).toBe(true);
+		expect(cards.bankerHitOrStand(9,9)).toBe(true);
+		expect(cards.bankerHitOrStand(19,17)).toBe(true);
+	});
+
+	it("test banker reset cards", function() {
+		cards.newCards = [""]
+		expect(cards.getRestBankerCards(["bt2","bt10"],["bt3","bt10"])).toEqual([]);
+		
+		cards.newCards = ["bt2","bt1","bt4"];
+		expect(cards.getRestBankerCards(["bt5","bt10"],["bt3","bt10"])).toEqual(["bt4"]);
+
+		cards.newCards = ["bt4","bt1","bt2"];
+		expect(cards.getRestBankerCards(["bt5","bt10"],["bt3","bt10"])).toEqual(["bt2"]);
+
+		cards.newCards = ["bt4","bt2","bt1"];
+		expect(cards.getRestBankerCards(["bt5","bt10"],["bt3","bt10"])).toEqual(["bt1","bt2"]);
+
+		cards.newCards = ["bt4","bt2","bt10"];
+		expect(cards.getRestBankerCards(["bt5","bt10"],["bt3","bt10"])).toEqual(["bt10"]);
+
+		cards.newCards = ["bt4","bt1","bt2","rt3","bt5"];
+		expect(cards.getRestBankerCards(["bt12","bm9"],["rt4","rs5"])).toEqual(["bt5","rt3","bt2"]);
+
+		cards.newCards = ["bt4","bt6","bt1","rt3","bt5"];
+		expect(cards.getRestBankerCards(["bt12","bm9"],["rt4","rs5"])).toEqual(["bt5","rt3","bt1","bt6"]);
+	});
+
+	it("test player final state", function() {
+		expect(cards.getPlayerFinalState(["bt2","bt10"],["bt3","bt10"])).toBe(0);
+		expect(cards.getPlayerFinalState(["bt2","bt10"],["bt3","bt10","bt1"])).toBe(0);
+		expect(cards.getPlayerFinalState(["bt2","bt10"],["bt3","bt10","bt1","bt2"])).toBe(0);
+		expect(cards.getPlayerFinalState(["bt11","bt10"],["bt3","bt10","bt1","bt2"])).toBe(2);
+		expect(cards.getPlayerFinalState(["bt9","bt10"],["bt3","bt10","bt1","bt2"])).toBe(2);
+		expect(cards.getPlayerFinalState(["bt9","bt10"],["bt3","bt10","bt1","bt2","bt10"])).toBe(2);
+	});
+
 });

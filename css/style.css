@@ -268,6 +268,8 @@ body {
   /**
   * only display new game button, even the chipcontainer should be hided
   **/ }
+  .gameStage .main-ui-element, .gameStage .controllIcon, .gameStage .chipContainer {
+    display: none; }
   .gameStage .chip-placed-area {
     width: 180px;
     height: 126px;
@@ -283,16 +285,93 @@ body {
     display: none; }
     .gameStage.placed-bet .controllIcon.deal, .gameStage.placed-bet .controllIcon.undo {
       display: block; }
+  .gameStage.placed-bet .chip.show, .gameStage.placed-bet .chipContainer {
+    display: block; }
   .gameStage.deal .chipContainer {
     display: none; }
   .gameStage.deal .controllIcon {
     display: none; }
     .gameStage.deal .controllIcon.hit, .gameStage.deal .controllIcon.stand {
       display: block; }
+  .gameStage.deal .main-ui-element {
+    display: none; }
+    .gameStage.deal .main-ui-element.chip, .gameStage.deal .main-ui-element.score.bottom.show {
+      display: block; }
   .gameStage.waiting-for-bet .controllIcon {
     display: none; }
   .gameStage.waiting-for-bet .chipContainer {
     display: block; }
+  .gameStage.stand .controllIcon, .gameStage.stand .chipContainer {
+    display: none; }
+  .gameStage.stand .chip, .gameStage.stand .score.bottom, .gameStage.stand .result.show {
+    display: block; }
+  .gameStage .main-ui-element {
+    background-image: url("images/main_ui_elements_sheet_01_optimized.png");
+    color: white;
+    font-size: 35px;
+    text-align: center; }
+    .gameStage .main-ui-element.result {
+      width: 124px;
+      height: 92px;
+      position: absolute;
+      z-index: 10; }
+      .gameStage .main-ui-element.result div {
+        width: 78px;
+        top: 7px;
+        right: 0px;
+        position: absolute; }
+      .gameStage .main-ui-element.result label {
+        display: block;
+        top: 67px;
+        position: relative;
+        font-size: 18px; }
+      .gameStage .main-ui-element.result.win {
+        background-position: -564px -493px; }
+      .gameStage .main-ui-element.result.lose {
+        background-position: -564px -363px; }
+      .gameStage .main-ui-element.result.draw {
+        background-position: -564px -233px; }
+      .gameStage .main-ui-element.result.bottom {
+        left: 312px;
+        top: 408px; }
+      .gameStage .main-ui-element.result.top {
+        left: 340px;
+        top: 146px;
+        transform: scale(0.7);
+        -webkit-transform: scale(0.7);
+        -moz-transform: scale(0.7);
+        -ms-transform: scale(0.7);
+        -o-transform: scale(0.7); }
+    .gameStage .main-ui-element.score {
+      width: 79px;
+      height: 76px;
+      background-position: -609px -121px;
+      position: absolute;
+      z-index: 10;
+      text-align: center; }
+      .gameStage .main-ui-element.score label {
+        position: relative;
+        top: 15px; }
+      .gameStage .main-ui-element.score.top {
+        left: 378px;
+        top: 146px;
+        transform: scale(0.7);
+        -webkit-transform: scale(0.7);
+        -moz-transform: scale(0.7);
+        -ms-transform: scale(0.7);
+        -o-transform: scale(0.7); }
+      .gameStage .main-ui-element.score.chip {
+        left: 256px;
+        top: 296px;
+        transform: scale(0.8);
+        -webkit-transform: scale(0.8);
+        -moz-transform: scale(0.8);
+        -ms-transform: scale(0.8);
+        -o-transform: scale(0.8); }
+      .gameStage .main-ui-element.score.bottom {
+        left: 358px;
+        top: 407px;
+        /*@include scale(0.7);*/ }
 
 /* simple */
 .flip-container {
@@ -364,11 +443,12 @@ body {
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-transition: 0.6s;
-  -moz-transition: 0.6s;
-  -ms-transition: 0.6s;
-  -o-transition: 0.6s;
-  transition: 0.6s;
+  /*@include transition("",0.6s,"");*/
+  -webkit-transition: transform 0.6s;
+  -moz-transition: transform 0.6s;
+  -ms-transition: transform 0.6s;
+  -o-transition: transform 0.6s;
+  transition: transform 0.6s;
   -moz-transform-style: preserve-3d;
   -ms-transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;

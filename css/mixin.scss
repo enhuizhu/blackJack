@@ -25,6 +25,12 @@
      -ms-transition:$time;
      -o-transition:$time;
      transition:$time;
+ }@else if($animationType == "") {
+    -webkit-transition:$property $time;
+    -moz-transition:$property $time;
+    -ms-transition:$property $time;
+    -o-transition:$property $time;
+    transition:$property $time; 
  }@else{
     -webkit-transition:$property $time $animationType;
     -moz-transition:$property $time $animationType;

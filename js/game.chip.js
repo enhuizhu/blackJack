@@ -7,6 +7,8 @@ game.chip={
    currentChip: null,
 
    chipArr: [],
+
+   chipAnimationTime: 1000,
    
    /**
    * all the initialation is here
@@ -40,6 +42,26 @@ game.chip={
    		* should send this infomation to node server
    		**/
    		game.socket.placedChip();
+
+   		setTimeout(function() {
+	   		/**
+	   		* should check if it already show, if not just add class show
+	   		**/
+	   		if (!jQuery(".chip").hasClass("show")) {
+	   			jQuery(".chip").addClass("show");
+	   		};
+	   		
+	   		jQuery(".chip label").html(game.chip.getChipTotal());
+   		}, game.chip.chipAnimationTime);
+   },
+
+   /**
+   * function to get the total value of chips
+   **/
+   getChipTotal: function() {
+   		return _.reduce(this.chipArr, function(memo, num) {
+   			return memo + parseInt(num);
+   		}, 0);
    },
 
    selectChip: function(){

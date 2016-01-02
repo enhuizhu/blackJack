@@ -4,6 +4,8 @@
 game.state = {
 	currentState: null,
 
+	flipAnimationTime: 600,
+
 	list: {
  		NEW: "NEW",
  		NEW_WITH_HISTORY: "NEW_WITH_HISTORY",
@@ -24,6 +26,13 @@ game.state = {
  		STAND: "stand",
  	},
 
+ 	resultStateClassLists: {
+ 		DRAW: "draw",
+ 		WIN: "win",
+ 		LOSE: "lose",
+ 	},
+ 	resultStatesClasses: ["draw", "win",  "lose"],
+
 	init: function() {
 		this.stage = jQuery("#gameStage");
 		game.socket.connect();
@@ -39,12 +48,17 @@ game.state = {
 		jQuery(".newGame").bind("click", this.newGame);
 		jQuery(".undo").bind("click", this.undo);
 		jQuery(".deal").bind("click", this.deal);
+		jQuery(".stand").bind("click", this.stand);
+	},
+
+	checkError:function(expectState) {
+		if (game.state.currentState != game.state.list[expectState]) {
+			throw "expect state:" + game.state.list[expectState] + ", actual state is:" + game.state.currentState;
+		};
 	},
 
 	deal: function() {
-		if (game.state.currentState != game.state.list.PLACED_BET) {
-			throw "expect state:" + game.state.list.PLACED_BET + ", actual state is:" + game.state.currentState;
-		};
+		game.state.checkError(game.state.list.PLACED_BET);
 
 		if (_.isEmpty(game.chip.chipArr)) {
 			throw "chips can not be empty!";
@@ -54,10 +68,7 @@ game.state = {
 	},
 
 	newGame: function() {
-		if (game.state.currentState != game.state.list.NEW) {
-			throw "expect state is:" + game.state.list.NEW + ", currentState is:" + game.state.currentState;
-		};
-
+		game.state.checkError(game.state.list.NEW);
 		game.socket.newGame();
 	},
 
@@ -65,9 +76,7 @@ game.state = {
 		/**
 		* should check if the current state is placed bet and thie chip arr is empty or not
 		**/
-		if (game.state.currentState != game.state.list.PLACED_BET) {
-			throw "expect state is:" + game.state.list.PLACED_BET + ", currentState is:" + game.state.currentState;
-		};
+		game.state.checkError(game.state.list.PLACED_BET);
 
 		if (_.isEmpty(game.chip.chipArr)) {
 			return false;
@@ -80,6 +89,11 @@ game.state = {
 		if (_.isEmpty(game.chip.chipArr)) {
 			game.socket.newGame();
 		};
+	},
+
+	stand: function() {
+		game.state.checkError(game.state.list.DEAL);
+		game.socket.stand();		
 	},
 
 	initSocketEvents: function() {
@@ -99,6 +113,8 @@ game.state = {
 
 			if (that.currentState == that.list.DEAL) {
 				that.onDeal(data);
+			}else if (that.currentState == that.list.STAND) {
+				that.onStand(data);
 			};
 		});
 	},
@@ -107,12 +123,104 @@ game.state = {
 		console.info("on deal!", data);
 		var playerCards = data.playerCards,
 			bankerCards = data.bankerCards;
-
+	
 		game.cards.sendoutPlayerCards(playerCards);
+
+		game.cards.addCards(playerCards, "player");
 
 		setTimeout(function() {
 			game.cards.sendoutBankerCards(bankerCards);
+			game.cards.addCards(bankerCards, "banker");
 		}, game.cards.animationDelay * playerCards.length);
+
+		setTimeout(function() {
+			if (!jQuery(".score.bottom").hasClass("show")) {
+				jQuery(".score.bottom").addClass("show");
+			};
+			/**
+			* display the score for the player's card
+			**/
+			jQuery(".score.bottom label").html(data.playerTotal);
+		}, game.cards.animationDelay * (playerCards.length + bankerCards.length));
+	},
+
+	onStand: function(data) {
+		var that = this,
+			secondCard = jQuery(jQuery(".computerCard").get(1));
+				
+		secondCard.find(".back").addClass(data.secondBankerCard);		
+		secondCard.addClass("hover");
+		
+		game.cards.addCards([data.secondBankerCard], "banker");
+		/**
+		* set result for player
+		**/
+		this.setResultForPlayer(data.playerTotal, data.finalState);
+
+		setTimeout(function() {
+			/**
+			* should check if data contains reset cards
+			**/
+			if (!_.isEmpty(data.resetCards)) {
+				game.cards.sendoutBankerCards(data.resetCards);
+
+				setTimeout(function() {
+					that.setResultForBanker(data.bankerTotal, data.finalState);
+				}, game.cards.animationDelay * data.resetCards.length);
+			
+			}else{
+				that.setResultForBanker(data.bankerTotal, data.finalState);
+			}
+		}, this.flipAnimationTime);
+	},
+
+	setResult: function(total, finalState, who) {
+		var domClass = who == "player" ? ".result.bottom" : ".result.top",
+		 	resultDom = jQuery(domClass);
+
+		resultClass = this.getResultClass(finalState, who);
+		
+		resultDom.find("div").html(total);
+
+		if (total > 21) {
+			resultDom.find("label").html("BUST");
+		}else{
+			resultDom.find("label").html(resultClass.toUpperCase());
+		}
+
+		resultDom.addClass("show");
+		this.setResultDomClass(resultDom, resultClass);
+	},
+
+	setResultForPlayer: function(playerTotal, finalState) {
+		this.setResult(playerTotal, finalState, "player");
+	},
+
+	setResultForBanker: function(bankerTotal, finalState) {
+		this.setResult(bankerTotal, finalState, "banker");
+	},
+
+	setResultDomClass: function(resultDom, domClass) {
+		var removeClassses = "";
+		
+		_.each(this.resultStatesClasses, function(v,k) {
+			removeClassses += "v ";
+		});
+
+		removeClassses = jQuery.trim(removeClassses);
+		resultDom.removeClass(removeClassses).addClass(domClass);
+	},
+
+	getResultClass: function(finalState, who) {
+		if (finalState == 1) {
+			return this.resultStateClassLists.DRAW;
+		};
+
+		if (finalState == 0) {
+			return who == "player" ? this.resultStateClassLists.LOSE : this.resultStateClassLists.WIN;
+		};
+
+		return who == "player" ? this.resultStateClassLists.WIN : this.resultStateClassLists.LOSE;
 	},
 
 	setStageClass: function(className) {

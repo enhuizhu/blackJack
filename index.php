@@ -1,7 +1,4 @@
-<?php 
-	include "config.php";
-?>
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
    <title>Bounus BlackJack</title>
@@ -9,6 +6,9 @@
 </head>
 
 <body>
+<?php 
+	include "config.php";
+?>
   <div class="gameStage" id="gameStage">
     <div class="chipContainer">
 	    <span class="chipIcon chipFive fristLeft" data-chip="5"></span>
@@ -31,6 +31,27 @@
 	<div class="controllIcon double"></div>
 	<div class="controllIcon clearChip"></div>
 	<div class="controllIcon doubleRebet"></div>
+
+	<div class="main-ui-element score top">
+		<label>20</label>
+	</div>
+	<div class="main-ui-element score chip">
+		<label>20</label>
+	</div>
+	<div class="main-ui-element score bottom">
+		<label>20</label>
+	</div>
+
+	<div class="main-ui-element result win bottom">
+		<div>20</div>
+		<label>WIN</label>
+	</div>
+
+	<div class="main-ui-element result win top">
+		<div>20</div>
+		<label>WIN</label>
+	</div>
+
 </div>
 
 <script type="text/javascript">

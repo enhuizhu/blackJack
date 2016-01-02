@@ -61,4 +61,18 @@ describe("game state", function() {
 		expect(game.state.stage.hasClass("stand")).toBe(true);
 		expect(game.state.stage.hasClass("new-game-with-history")).toBe(false);
 	});
+
+	it("test final state class", function() {
+		expect(game.state.getResultClass(1, "player")).toBe("draw");
+		expect(game.state.getResultClass(0, "player")).toBe("lose");
+		expect(game.state.getResultClass(2, "player")).toBe("win");
+		expect(game.state.getResultClass(1, "banker")).toBe("draw");
+		expect(game.state.getResultClass(0, "banker")).toBe("win");
+		expect(game.state.getResultClass(2, "banker")).toBe("lose");
+	});
+
+	it("test error", function() {
+		game.state.currentState = "NEW";
+		expect(function(){game.state.checkError("PLACED_BET")}).toThrow();
+	});
 });

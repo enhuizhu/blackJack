@@ -47,8 +47,32 @@ io.sockets.on("connection", function(socket) {
 			{
 				currentState: socket.currentState,
 				playerCards: socket.playerCards,
-				bankerCards: socket.bankerCards
+				bankerCards: [socket.bankerCards[0],""],
+				playerTotal: socket.cardObj.getCardsTotalValue(socket.playerCards),
 			}
 		);
 	});
+
+	socket.on("game.stand", function(data) {
+		console.info("game stand", data);
+		socket.currentState = state.STAND;
+		
+		var resetCards = socket.cardObj.getRestBankerCards(socket.playerCards, socket.bankerCards);
+		
+		socket.bankerCards = socket.bankerCards.concat(resetCards);
+		
+		var finalState = socket.cardObj.getPlayerFinalState(socket.playerCards, socket.bankerCards);
+
+		socket.emit("state.change",
+			{
+				currentState: socket.currentState,
+				secondBankerCard: socket.bankerCards[1],
+				playerTotal: socket.cardObj.getCardsTotalValue(socket.playerCards),
+				bankerTotal: socket.cardObj.getCardsTotalValue(socket.bankerCards),
+				resetCards: resetCards,
+				finalState: finalState, //0 means player lose, 1 means draw, 2 means win
+			}
+		);
+	});
+
 });

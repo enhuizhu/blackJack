@@ -24,5 +24,9 @@ game.socket = {
 
 	deal: function(chipArr) {
 		this.socket.emit("game.deal", chipArr);
+	},
+
+	stand: function() {
+		this.socket.emit("game.stand");
 	}
 };
