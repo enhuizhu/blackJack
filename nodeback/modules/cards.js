@@ -7,6 +7,10 @@ var _ = require("underscore");
 var prefixs = ["bt","rt","rs","bm"];
 
 function cards(){
+	this.init();
+};
+
+cards.prototype.init = function() {
 	this.newCards = [];
 	this.originalCards = this.getOriginalCards();
 	this.generateNewCards();
@@ -105,6 +109,10 @@ cards.prototype.getCardsTotalValue = function(cards) {
 * true means hit, false means stand
 **/
 cards.prototype.bankerHitOrStand = function(playerTotal, bankerTotal) {
+	if (playerTotal > 21) {
+		return false;
+	};
+
 	if (playerTotal == bankerTotal) {
 		/**
 		* should check the value of total, if total is less then 10, then we should ask for another card

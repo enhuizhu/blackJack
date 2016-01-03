@@ -111,6 +111,8 @@ describe("test all the card function", function() {
 		expect(cards.bankerHitOrStand(10,10)).toBe(true);
 		expect(cards.bankerHitOrStand(9,9)).toBe(true);
 		expect(cards.bankerHitOrStand(19,17)).toBe(true);
+		expect(cards.bankerHitOrStand(24,17)).toBe(false);
+		expect(cards.bankerHitOrStand(26,17)).toBe(false);
 	});
 
 	it("test banker reset cards", function() {

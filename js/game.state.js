@@ -31,7 +31,6 @@ game.state = {
  		WIN: "win",
  		LOSE: "lose",
  	},
- 	resultStatesClasses: ["draw", "win",  "lose"],
 
 	init: function() {
 		this.stage = jQuery("#gameStage");
@@ -49,16 +48,60 @@ game.state = {
 		jQuery(".undo").bind("click", this.undo);
 		jQuery(".deal").bind("click", this.deal);
 		jQuery(".stand").bind("click", this.stand);
+		jQuery(".hit").bind("click", this.hit);
+		jQuery(".rebet").bind("click", this.rebet);
 	},
 
 	checkError:function(expectState) {
+		if (_.isArray(expectState)) {
+			if (expectState.indexOf(game.state.currentState) == -1) {
+				throw "unexpected state:" + game.state.currentState;
+			};
+
+			return true;
+		};
+
 		if (game.state.currentState != game.state.list[expectState]) {
 			throw "expect state:" + game.state.list[expectState] + ", actual state is:" + game.state.currentState;
 		};
 	},
 
+	hit: function() {
+		game.state.checkError([game.state.list.DEAL, game.state.list.HIT]);
+		/**
+		* should send request to server for asking new card
+		**/
+		game.socket.hit();
+	},
+
+	rebet: function() {
+		game.state.checkError(game.state.list.NEW_WITH_HISTORY);
+		/**
+		* clear table
+		**/
+		game.state.clearTable().then(function() {
+			/**
+			* should check if the chipDom already on the table.
+			**/
+			if (!game.chip.isChipDomOnTable()) {
+				game.chip.playerPutChips(game.chip.chipArr).then(function() {
+			   		game.chip.displayChipScore();
+					game.state.deal();	
+				});
+			}else{
+				if (game.chip.bankerChipArr.length > 0) {
+					game.chip.emptyBankerChipArr();
+					game.chip.setChipTotalInDom();
+				};
+		   		
+		   		game.chip.displayChipScore();
+				game.state.deal();
+			}
+		});
+	},
+
 	deal: function() {
-		game.state.checkError(game.state.list.PLACED_BET);
+		game.state.checkError([game.state.list.PLACED_BET, game.state.list.NEW_WITH_HISTORY]);
 
 		if (_.isEmpty(game.chip.chipArr)) {
 			throw "chips can not be empty!";
@@ -68,8 +111,19 @@ game.state = {
 	},
 
 	newGame: function() {
-		game.state.checkError(game.state.list.NEW);
-		game.socket.newGame();
+		game.state.checkError([game.state.list.NEW, game.state.list.NEW_WITH_HISTORY]);
+		/**
+		* should check current game state, if the state is NEW_WITH_HISTORY, then should
+		* clean the table
+		**/
+		if (game.state.currentState === game.state.list.NEW_WITH_HISTORY) {
+			game.state.clearTable(true).then(function() {
+				game.chip.resetChipState();
+				game.socket.newGame();
+			});
+		}else{
+			game.socket.newGame();
+		}
 	},
 
 	undo: function() {
@@ -92,7 +146,7 @@ game.state = {
 	},
 
 	stand: function() {
-		game.state.checkError(game.state.list.DEAL);
+		game.state.checkError([game.state.list.DEAL, game.state.list.HIT]);
 		game.socket.stand();		
 	},
 
@@ -111,10 +165,30 @@ game.state = {
 			var currentClass = that.getStageClass(that.currentState);
 			that.setStageClass(currentClass);
 
-			if (that.currentState == that.list.DEAL) {
+			if (that.currentState === that.list.DEAL) {
 				that.onDeal(data);
-			}else if (that.currentState == that.list.STAND) {
+			}else if (that.currentState === that.list.STAND) {
 				that.onStand(data);
+			}else if(that.currentState === that.list.HIT){
+				that.onHit(data);
+			}
+		});
+	},
+
+	onHit: function(data) {
+		console.info("on hit", data);
+		/**
+		* send out the new card
+		**/
+		game.cards.sendoutPlayerCards(data.newCard, "player").then(function(params) {
+			console.info("on hit promise", params);
+			game.cards.setDomCardsTotalValue(data.playerTotal);
+			game.cards.addCards(data.newCard, "player");
+			/**
+			* should check if user already get black jack or bust
+			**/
+			if (typeof data.finalState != "undefined") {
+				game.socket.stand();
 			};
 		});
 	},
@@ -124,24 +198,27 @@ game.state = {
 		var playerCards = data.playerCards,
 			bankerCards = data.bankerCards;
 	
-		game.cards.sendoutPlayerCards(playerCards);
-
-		game.cards.addCards(playerCards, "player");
-
-		setTimeout(function() {
-			game.cards.sendoutBankerCards(bankerCards);
-			game.cards.addCards(bankerCards, "banker");
-		}, game.cards.animationDelay * playerCards.length);
-
-		setTimeout(function() {
+		game.cards.sendoutPlayerCards(playerCards).then(function() {
+			game.cards.addCards(playerCards, "player");
+			
 			if (!jQuery(".score.bottom").hasClass("show")) {
 				jQuery(".score.bottom").addClass("show");
 			};
 			/**
 			* display the score for the player's card
 			**/
-			jQuery(".score.bottom label").html(data.playerTotal);
-		}, game.cards.animationDelay * (playerCards.length + bankerCards.length));
+			game.cards.setDomCardsTotalValue(data.playerTotal);
+			
+			game.cards.sendoutBankerCards(bankerCards).then(function() {
+				game.cards.addCards(bankerCards, "banker");
+				/**
+				* should check if it's black jack
+				**/
+				if (typeof data.finalState != "undefined") {
+					game.socket.stand();
+				};
+			});
+		});
 	},
 
 	onStand: function(data) {
@@ -152,26 +229,40 @@ game.state = {
 		secondCard.addClass("hover");
 		
 		game.cards.addCards([data.secondBankerCard], "banker");
-		/**
-		* set result for player
-		**/
-		this.setResultForPlayer(data.playerTotal, data.finalState);
 
-		setTimeout(function() {
+		this.flipBankerSecondCardAndSendoutRestCards(data).then(function() {
+			that.setResultForBanker(data.bankerTotal, data.finalState);
+			/**
+			* set result for player
+			**/
+			that.setResultForPlayer(data.playerTotal, data.finalState);
+			game.chip.resetChips(data.finalState);			
+			game.socket.newGameWithHistory();
+		})
+	},
+
+	onNewWithHistory: function() {
+
+	},
+
+	flipBankerSecondCardAndSendoutRestCards: function(data) {
+		 var deferred = Q.defer();
+		 
+		 setTimeout(function() {
 			/**
 			* should check if data contains reset cards
 			**/
 			if (!_.isEmpty(data.resetCards)) {
-				game.cards.sendoutBankerCards(data.resetCards);
-
-				setTimeout(function() {
-					that.setResultForBanker(data.bankerTotal, data.finalState);
-				}, game.cards.animationDelay * data.resetCards.length);
-			
+				game.cards.sendoutBankerCards(data.resetCards).then(function() {
+					deferred.resolve();
+				});
 			}else{
-				that.setResultForBanker(data.bankerTotal, data.finalState);
+				deferred.resolve();
 			}
+
 		}, this.flipAnimationTime);
+
+		return deferred.promise;
 	},
 
 	setResult: function(total, finalState, who) {
@@ -203,12 +294,16 @@ game.state = {
 	setResultDomClass: function(resultDom, domClass) {
 		var removeClassses = "";
 		
-		_.each(this.resultStatesClasses, function(v,k) {
-			removeClassses += "v ";
+		_.each(this.resultStateClassLists, function(v,k) {
+			removeClassses += v + " ";
 		});
 
 		removeClassses = jQuery.trim(removeClassses);
 		resultDom.removeClass(removeClassses).addClass(domClass);
+	},
+
+	resetResultDomAndScoreDom: function() {
+		jQuery(".result, .score").removeClass("show");
 	},
 
 	getResultClass: function(finalState, who) {
@@ -270,6 +365,33 @@ game.state = {
 		}
 
 		return false;
+	},
+
+	clearTable: function(isNewGame) {
+		var deferred = Q.defer(),
+			that = this;
+		
+		game.cards.makeUserCardsDisappear("banker").then(function() {
+			game.cards.makeUserCardsDisappear("player").then(function() {
+				game.cards.deleteAllCards();
+				
+				if (isNewGame && game.chip.isChipDomOnTable()) {
+					game.chip.makeChipDisppear("top").then(function() {
+						deferred.resolve();
+						that.resetResultDomAndScoreDom();
+					});
+				}else {
+					if (isNewGame) {
+						game.chip.removeChipFromTable();
+					};
+
+					deferred.resolve();
+					that.resetResultDomAndScoreDom();
+				}
+			});
+		});
+
+		return deferred.promise;
 	}
 }
 

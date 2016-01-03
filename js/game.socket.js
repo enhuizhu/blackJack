@@ -28,5 +28,13 @@ game.socket = {
 
 	stand: function() {
 		this.socket.emit("game.stand");
+	},
+
+	hit: function() {
+		this.socket.emit("game.hit");
+	},
+
+	newGameWithHistory: function() {
+		this.socket.emit("game.newWithHistory");
 	}
 };

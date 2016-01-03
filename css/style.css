@@ -253,6 +253,121 @@
     -moz-transform: scale(0.65);
     -ms-transform: scale(0.65);
     -o-transform: scale(0.65); } }
+@-webkit-keyframes putChipOnDeskFromBanker {
+  0% {
+    left: 591px;
+    top: 50px;
+    transform: scale(0.45);
+    -webkit-transform: scale(0.45);
+    -moz-transform: scale(0.45);
+    -ms-transform: scale(0.45);
+    -o-transform: scale(0.45); }
+
+  50% {
+    top: 200px;
+    left: 400px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); }
+
+  100% {
+    left: 357px;
+    top: 296px; } }
+@-moz-keyframes putChipOnDeskFromBanker {
+  0% {
+    left: 591px;
+    top: 50px;
+    transform: scale(0.45);
+    -webkit-transform: scale(0.45);
+    -moz-transform: scale(0.45);
+    -ms-transform: scale(0.45);
+    -o-transform: scale(0.45); }
+
+  50% {
+    top: 200px;
+    left: 400px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); }
+
+  100% {
+    left: 357px;
+    top: 296px; } }
+@-ms-keyframes putChipOnDeskFromBanker {
+  0% {
+    left: 591px;
+    top: 50px;
+    transform: scale(0.45);
+    -webkit-transform: scale(0.45);
+    -moz-transform: scale(0.45);
+    -ms-transform: scale(0.45);
+    -o-transform: scale(0.45); }
+
+  50% {
+    top: 200px;
+    left: 400px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); }
+
+  100% {
+    left: 357px;
+    top: 296px; } }
+@-o-keyframes putChipOnDeskFromBanker {
+  0% {
+    left: 591px;
+    top: 50px;
+    transform: scale(0.45);
+    -webkit-transform: scale(0.45);
+    -moz-transform: scale(0.45);
+    -ms-transform: scale(0.45);
+    -o-transform: scale(0.45); }
+
+  50% {
+    top: 200px;
+    left: 400px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); }
+
+  100% {
+    left: 357px;
+    top: 296px; } }
+@keyframes putChipOnDeskFromBanker {
+  0% {
+    left: 591px;
+    top: 50px;
+    transform: scale(0.45);
+    -webkit-transform: scale(0.45);
+    -moz-transform: scale(0.45);
+    -ms-transform: scale(0.45);
+    -o-transform: scale(0.45); }
+
+  50% {
+    top: 200px;
+    left: 400px;
+    box-shadow: -47px 99px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -ms-transform: scale(0.65);
+    -o-transform: scale(0.65); }
+
+  100% {
+    left: 357px;
+    top: 296px; } }
 body {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   background-color: black; }
@@ -287,24 +402,30 @@ body {
       display: block; }
   .gameStage.placed-bet .chip.show, .gameStage.placed-bet .chipContainer {
     display: block; }
-  .gameStage.deal .chipContainer {
+  .gameStage.deal .chipContainer, .gameStage.hit .chipContainer {
     display: none; }
-  .gameStage.deal .controllIcon {
+  .gameStage.deal .controllIcon, .gameStage.hit .controllIcon {
     display: none; }
-    .gameStage.deal .controllIcon.hit, .gameStage.deal .controllIcon.stand {
+    .gameStage.deal .controllIcon.hit, .gameStage.deal .controllIcon.stand, .gameStage.hit .controllIcon.hit, .gameStage.hit .controllIcon.stand {
       display: block; }
-  .gameStage.deal .main-ui-element {
+  .gameStage.deal .main-ui-element, .gameStage.hit .main-ui-element {
     display: none; }
-    .gameStage.deal .main-ui-element.chip, .gameStage.deal .main-ui-element.score.bottom.show {
+    .gameStage.deal .main-ui-element.chip, .gameStage.deal .main-ui-element.score.bottom.show, .gameStage.hit .main-ui-element.chip, .gameStage.hit .main-ui-element.score.bottom.show {
       display: block; }
   .gameStage.waiting-for-bet .controllIcon {
     display: none; }
   .gameStage.waiting-for-bet .chipContainer {
     display: block; }
-  .gameStage.stand .controllIcon, .gameStage.stand .chipContainer {
+  .gameStage.stand .controllIcon, .gameStage.stand .chipContainer, .gameStage.new-game-with-history .controllIcon, .gameStage.new-game-with-history .chipContainer {
     display: none; }
-  .gameStage.stand .chip, .gameStage.stand .score.bottom, .gameStage.stand .result.show {
+  .gameStage.stand .chip, .gameStage.stand .score.bottom, .gameStage.stand .result.show, .gameStage.new-game-with-history .chip, .gameStage.new-game-with-history .score.bottom, .gameStage.new-game-with-history .result.show {
     display: block; }
+  .gameStage.new-game-with-history .newGame, .gameStage.new-game-with-history .rebet, .gameStage.new-game-with-history .doubleRebet {
+    display: block; }
+  .gameStage.new-game-with-history .chip, .gameStage.new-game-with-history .score.bottom {
+    display: none; }
+    .gameStage.new-game-with-history .chip.show, .gameStage.new-game-with-history .score.bottom.show {
+      display: block; }
   .gameStage .main-ui-element {
     background-image: url("images/main_ui_elements_sheet_01_optimized.png");
     color: white;
@@ -668,6 +789,7 @@ body {
 .flip-container.disapppear {
   left: 125px !important;
   top: 169px !important;
+  z-index: 1000;
   opacity: 0;
   -webkit-transform: rotateZ(25deg) rotateX(54deg) scale(0.4);
   transform: rotateZ(25deg) rotateX(54deg) scale(0.4);
@@ -749,7 +871,8 @@ body {
 .chipIcon.flyChip {
   position: absolute;
   height: 91px;
-  border-radius: 57px; }
+  border-radius: 57px;
+  z-index: 11; }
 
 .flyChip.startPos {
   left: 592px;
@@ -787,6 +910,13 @@ body {
   -o-animation: putChipOnDeskBottom 0.7s forwards;
   animation: putChipOnDeskBottom 0.7s forwards; }
 
+.flyChip.flyingFromBanker {
+  -webkit-animation: putChipOnDeskFromBanker 1s forwards;
+  -moz-animation: putChipOnDeskFromBanker 1s forwards;
+  -ms-animation: putChipOnDeskFromBanker 1s forwards;
+  -o-animation: putChipOnDeskFromBanker 1s forwards;
+  animation: putChipOnDeskFromBanker 1s forwards; }
+
 .flyChip.chipDisappear {
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
@@ -800,6 +930,21 @@ body {
   -o-transform: scale(0.7);
   top: 559px !important;
   left: 596px;
+  opacity: 0; }
+
+.flyChip.chipDisappearForBanker {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  transform: scale(0.45);
+  -webkit-transform: scale(0.45);
+  -moz-transform: scale(0.45);
+  -ms-transform: scale(0.45);
+  -o-transform: scale(0.45);
+  top: 50px !important;
+  left: 591px;
   opacity: 0; }
 
 .chipIcon.active {

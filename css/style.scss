@@ -61,7 +61,7 @@ body{
 		}
 	}
 
-	&.deal {
+	&.deal,&.hit {
 		.chipContainer {
 			display: none;
 		}
@@ -93,13 +93,26 @@ body{
 		}
 	}
 
-	&.stand {
+	&.stand, &.new-game-with-history{
 		.controllIcon, .chipContainer {
 			display: none;
 		}
 
 		.chip, .score.bottom, .result.show {
 			display: block;
+		}
+	}
+
+	&.new-game-with-history {
+		.newGame, .rebet, .doubleRebet {
+			display: block;
+		}
+
+		.chip, .score.bottom {
+			display: none;
+			&.show {
+				display: block;
+			}
 		}
 	}
 
@@ -289,6 +302,7 @@ $firstIndex: $firstIndex + 1;
 .flip-container.disapppear{
 	left:125px !important;
 	top:169px !important;
+	z-index: 1000;
 	opacity:0;
 	@include rotateXrotateZscale(54deg,25deg,0.4);
 	/*@include rotateXrotateYrotateZscale(54deg, 45deg, 25deg, 0.4);*/
@@ -351,6 +365,7 @@ $chipIndex : 0;
 	position: absolute;
 	height: 91px; 
 	border-radius: 57px;
+	z-index: 11;
 }
 
 .flyChip.startPos{
@@ -378,11 +393,23 @@ $chipIndex : 0;
    @include animation(putChipOnDeskBottom,0.7s);  
 }
 
+.flyChip.flyingFromBanker{
+   @include animation(putChipOnDeskFromBanker,1s)
+}
+
 .flyChip.chipDisappear{
    @include transition(all,0.5s,ease-in-out);
    @include scale(0.7);
    top: 559px !important;
    left: 596px;
+   opacity:0;
+}
+
+.flyChip.chipDisappearForBanker{
+   @include transition(all,0.5s,ease-in-out);
+   @include scale(0.45);
+   top: 50px !important;
+   left: 591px;
    opacity:0;
 }
 

@@ -60,11 +60,12 @@
 
 <script src="bower_components/jQuery/dist/jquery.min.js"></script>
 <script src="bower_components/underscore/underscore-min.js"></script>
-
+<script src="bower_components/q/q.js"></script>
 
 <script src="<?php echo $socketUrl."/socket.io/socket.io.js"?>"></script>
 
 <script src="js/helpers/animation.js"></script>
+<script src="js/helpers/time.js"></script>
 <script src="js/game.js"></script>
 <script src="js/game.cards.js"></script>
 <script src="js/game.chip.js"></script>

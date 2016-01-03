@@ -39,18 +39,30 @@ io.sockets.on("connection", function(socket) {
 	socket.on("game.deal", function(data) {
 		console.info("game deal", data);
 		socket.currentState = state.DEAL;
-		socket.cardObj = new cardObj();
-		socket.playerCards = socket.cardObj.sendOutCards(2),
-		socket.bankerCards = socket.cardObj.sendOutCards(2),
 		
-		socket.emit("state.change", 
-			{
-				currentState: socket.currentState,
-				playerCards: socket.playerCards,
-				bankerCards: [socket.bankerCards[0],""],
-				playerTotal: socket.cardObj.getCardsTotalValue(socket.playerCards),
-			}
-		);
+		if (_.isUndefined(socket.cardObj)) {
+			socket.cardObj = new cardObj();
+		}else{
+			socket.cardObj.init();
+		}
+		
+		socket.playerCards = socket.cardObj.sendOutCards(2);
+		socket.bankerCards = socket.cardObj.sendOutCards(2);
+		
+		var playerTotal = socket.cardObj.getCardsTotalValue(socket.playerCards);
+		
+		var response = {
+			currentState: socket.currentState,
+			playerCards: socket.playerCards,
+			bankerCards: [socket.bankerCards[0],""],
+			playerTotal: playerTotal,
+		}
+
+		if (playerTotal == 21) {
+			_.extend(response, {finalState: 2});
+		};
+
+		socket.emit("state.change", response);
 	});
 
 	socket.on("game.stand", function(data) {
@@ -73,6 +85,34 @@ io.sockets.on("connection", function(socket) {
 				finalState: finalState, //0 means player lose, 1 means draw, 2 means win
 			}
 		);
+	});
+
+	socket.on("game.hit", function(data) {
+		console.info("game hit");
+		var newCard = socket.cardObj.sendOutCards(1);
+		socket.playerCards = socket.playerCards.concat(newCard);
+		socket.currentState = state.HIT;
+
+		var playerTotal = socket.cardObj.getCardsTotalValue(socket.playerCards);
+		
+		var response = {
+			currentState: socket.currentState,
+			playerTotal: playerTotal,
+			newCard: newCard,
+		}
+
+		if (playerTotal == 21) {
+			_.extend(response, {finalState: 2});
+		}else if (playerTotal > 21) {
+			_.extend(response, {finalState: 0})
+		};
+
+		socket.emit("state.change", response);
+	});
+
+	socket.on("game.newWithHistory", function(data) {
+		console.info("-- new game with history --");
+		socket.emit("state.change", state.NEW_WITH_HISTORY);
 	});
 
 });

@@ -8,6 +8,8 @@ game.chip={
 
    chipArr: [],
 
+   bankerChipArr: [],
+
    chipAnimationTime: 1000,
    
    /**
@@ -43,88 +45,205 @@ game.chip={
    		**/
    		game.socket.placedChip();
 
-   		setTimeout(function() {
-	   		/**
-	   		* should check if it already show, if not just add class show
-	   		**/
-	   		if (!jQuery(".chip").hasClass("show")) {
-	   			jQuery(".chip").addClass("show");
-	   		};
-	   		
-	   		jQuery(".chip label").html(game.chip.getChipTotal());
+   		setTimeout(function() {	
+	   		game.chip.displayChipScore();
+	   		game.chip.setChipTotalInDom();
    		}, game.chip.chipAnimationTime);
    },
 
+   displayChipScore: function() {
+	   /**
+	   * should check if it already show, if not just add class show
+	   **/
+	   if (!jQuery(".chip").hasClass("show")) {
+	   	jQuery(".chip").addClass("show");
+	   };
+   },
+
+   setChipTotalInDom: function() {
+	   jQuery(".chip label").html(game.chip.getChipTotal());
+   },
+
+   hideChipScore: function() {
+   	   console.info("hide chip score");
+   	   console.trace();
+
+   	   jQuery(".score.chip").removeClass("show");
+   },
+
+   isChipDomOnTable: function() {
+   	   return jQuery(".flyChip").length > 0;
+   },
+
+   removeDuplicateChipDom: function(chipArr) {
+   	   var that = this;
+   	   
+   	   _.each(chipArr, function(v, k) {
+   	   	   var chipClass = that.getChipDomClass(v),
+   	   	   	   allChips = jQuery("." + chipClass);
+   	   	   
+   	   	   jQuery(allChips.get(allChips.length - 1)).remove();
+   	   });
+   },
    /**
    * function to get the total value of chips
    **/
    getChipTotal: function() {
-   		return _.reduce(this.chipArr, function(memo, num) {
-   			return memo + parseInt(num);
-   		}, 0);
+		var sum = 0;
+
+		if (!_.isEmpty(this.bankerChipArr)) {
+			sum = _.reduce(this.bankerChipArr, function(memo, num) {
+				return memo + parseInt(num);
+			}, sum);
+		};
+
+		return _.reduce(this.chipArr, function(memo, num) {
+			return memo + parseInt(num);
+		}, sum);
    },
 
    selectChip: function(){
-   		console.info("selectChip");
-   		/**
-   		* make other chip inactive
-   		**/
-   		jQuery(".chipIcon").removeClass("active");
-   		jQuery(this).addClass("active");
+		console.info("selectChip");
+		/**
+		* make other chip inactive
+		**/
+		jQuery(".chipIcon").removeClass("active");
+		jQuery(this).addClass("active");
 
-   		var chipValue = jQuery(this).attr("data-chip");
-   		game.chip.currentChip = chipValue;
+		var chipValue = jQuery(this).attr("data-chip");
+		game.chip.currentChip = chipValue;
    },
 
    resetChipState: function() {
-   		this.chipNumber = 0;
-   		this.currentChip = null;
-   },	
+   	   this.emtpyChipArr();
+   	   this.emptyBankerChipArr();
+   },
+
+   emtpyChipArr: function() {
+   	   this.removeDuplicateChipDom(this.chipArr);
+   	   this.chipArr = [];
+   },
+   
+   emptyBankerChipArr: function() {
+   	   this.removeDuplicateChipDom(this.bankerChipArr);
+   	   this.bankerChipArr = [];
+   },
+
+   resetChips: function(finalState)	{
+   	  	switch(finalState) {
+   	  		case 0: //user lose, should let banker get all the chips
+   	  			/**
+   	  			* should hide the chip score
+   	  			**/
+   	  			this.hideChipScore();
+   	  			return this.makeChipDisppear("top", "banker");
+   	  			break;
+   	  		case 1: // user and banker draw, should keep chips there
+   	  			break;
+   	  		case 2: // user win, banker should put more chip there
+   	  			this.bankerChipArr = _.clone(this.chipArr);
+   	  			this.setChipTotalInDom();
+   	  			
+   	  			return this.bankerPutChips(this.chipArr);
+   	  			break;
+   	  	}
+   },
    /**
    * function to put regular chip on the table
    **/
-   putRegularChip:function(chipIndex,chipValue,position){ 
-      
-	  var chipClass=this.getChipDomClass(chipValue);
-	  this.generateFlyingChipDom(chipClass);
-      
-	  var extraClass=position=="top"?"flying":"flyingBottom";
-	  var finalClass=position=="top"?"topEndPos":"topEndBottom";
-	  jQuery("#flyChip").addClass(extraClass);
-	  /**
-	  * add transition end event to the fly chip
-	  **/
-	  jQuery("#flyChip").bind(animationEnd,function(){
-	      jQuery(this).removeClass(extraClass).addClass(finalClass);
-		  /**
-		  * according to its index value should chnage its y position
-		  **/
-		  var top = jQuery(this).css("top");
-		  topInt=eval(top.substr(0,top.length-2));
-		  topInt=topInt - (chipIndex-1)*game.chip.topChipHeightDis;
-		  top=topInt+"px";
-		  jQuery(this).css({"top":top});
-		  jQuery(this).removeAttr("id");
-	  });
+   putRegularChip:function(chipIndex,chipValue,position,from){ 
+		var chipClass=this.getChipDomClass(chipValue),
+			  deferred = Q.defer();
+
+		var domId = this.generateFlyingChipDom(chipClass);
+
+		if (position == "top" && from == "banker") {
+			var extraClass = "flyingFromBanker";
+		}else{
+			var extraClass = position == "top" ? "flying" : "flyingBottom";
+		}
+
+		var finalClass = position == "top" ? "topEndPos" : "topEndBottom";
+
+		jQuery("#" + domId).addClass(extraClass);
+		/**
+		* add transition end event to the fly chip
+		**/
+		jQuery("#" + domId).bind(animationEnd,function(){
+			deferred.resolve();
+			jQuery(this).removeClass(extraClass).addClass(finalClass);
+			/**
+			* according to its index value should chnage its y position
+			**/
+			var top = jQuery(this).css("top");
+			topInt=eval(top.substr(0,top.length-2));
+			topInt=topInt - (chipIndex-1)*game.chip.topChipHeightDis;
+			top=topInt+"px";
+			jQuery(this).css({"top":top});
+			jQuery(this).removeAttr("id");
+		});
+
+		return deferred.promise;
    },
+
+   putChips: function(chips, who) {
+   	   var timeDistance = 100,
+   	   	   that = this,
+   	   	   promises = [],
+   	   	   startIndex = this.chipArr.length + 1;
+
+   	   _.each(chips, function(v, k){
+   	   	   	var promise = registerTimeout(that.putRegularChip, timeDistance * k, [startIndex + k, v, "top", who], that);
+   	   	   	promises.push(promise);
+   	   });
+
+   	   return Q.all(promises);
+   	},
    
+   bankerPutChips: function(chips) {
+   	   return this.putChips(chips, "banker");
+   },
+
+   playerPutChips: function(chips) {
+   	   return this.putChips(chips, "player");
+   },
    /**
    * function to make chip disappear
    **/
-   makeChipDisppear:function(position){
-      var selector=position=="top"?".topEndPos":".topEndBottom";
-	  jQuery(selector).addClass("chipDisappear");
-	  jQuery(selector).bind(transitionEnd,function(){
-	    jQuery(this).remove();
-	  });
-	},
-  
+   makeChipDisppear:function(position, who){
+      var selector = position == "top" ? ".topEndPos" : ".topEndBottom",
+      	  animationClass = who == "banker" ? "chipDisappearForBanker" : "chipDisappear",
+      	  deferred = Q.defer();
+	  
+      if(jQuery(selector).length) {
+		  jQuery(selector).addClass(animationClass);
+	  
+		  jQuery(selector).bind(transitionEnd,function(){
+		    jQuery(this).remove();
+		    deferred.resolve();
+		  });
+      }else{
+      	  deferred.resolve();
+      }
+
+	  return deferred.promise;
+   },
+   
+   /**
+   * remove chips directly from table
+   **/
+   removeChipFromTable: function() {
+   	   jQuery(".topEndPos, .topEndBottom").remove();
+   },
    /**
    * funciton to generate the dom of flying dom
    **/
    generateFlyingChipDom:function(chipClass){
-       var domContent='<div class="chipIcon '+chipClass+' flyChip" id="flyChip"></div>';
+       var id = _.uniqueId("fly_");
+       var domContent='<div class="chipIcon '+chipClass+' flyChip" id="'+id+'"></div>';
 	   jQuery(".gameStage").append(domContent);
+
+	   return id;
    },
 
    /**
