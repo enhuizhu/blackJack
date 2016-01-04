@@ -50,6 +50,8 @@ game.state = {
 		jQuery(".stand").bind("click", this.stand);
 		jQuery(".hit").bind("click", this.hit);
 		jQuery(".rebet").bind("click", this.rebet);
+		jQuery(".doubleRebet").bind("click", this.doubleRebet);
+		jQuery(".clearChip").bind("click", this.clearChip);
 	},
 
 	checkError:function(expectState) {
@@ -75,6 +77,10 @@ game.state = {
 	},
 
 	rebet: function() {
+		game.state.rebetCommonFunction();
+	},
+
+	rebetCommonFunction: function(isDouble) {
 		game.state.checkError(game.state.list.NEW_WITH_HISTORY);
 		/**
 		* clear table
@@ -83,8 +89,15 @@ game.state = {
 			/**
 			* should check if the chipDom already on the table.
 			**/
-			if (!game.chip.isChipDomOnTable()) {
-				game.chip.playerPutChips(game.chip.chipArr).then(function() {
+			if (!game.chip.isChipDomOnTable()) {				
+				var chipArr = isDouble ? game.chip.chipArr.concat(game.chip.chipArr) : game.chip.chipArr;
+
+				game.chip.playerPutChips(chipArr, 1).then(function() {
+			   		if (isDouble) {
+			   			game.chip.chipArr = game.chip.chipArr.concat(game.chip.chipArr);
+						game.chip.setChipTotalInDom();
+			   		};
+
 			   		game.chip.displayChipScore();
 					game.state.deal();	
 				});
@@ -93,11 +106,24 @@ game.state = {
 					game.chip.emptyBankerChipArr();
 					game.chip.setChipTotalInDom();
 				};
+
+				if (isDouble) {
+					game.chip.playerPutChips(game.chip.chipArr, game.chip.chipArr.length + 1).then(function() {
+			   			game.chip.chipArr = game.chip.chipArr.concat(game.chip.chipArr);
+						game.chip.setChipTotalInDom();
+						game.state.deal();
+					});
+				}else{
+					game.state.deal();
+				}
 		   		
 		   		game.chip.displayChipScore();
-				game.state.deal();
 			}
 		});
+	},
+
+	doubleRebet: function() {
+		game.state.rebetCommonFunction(true);
 	},
 
 	deal: function() {
@@ -142,7 +168,15 @@ game.state = {
 
 		if (_.isEmpty(game.chip.chipArr)) {
 			game.socket.newGame();
+			game.chip.hideChipScore();
 		};
+	},
+
+	clearChip: function() {
+		game.state.checkError(game.state.list.PLACED_BET);
+		game.chip.emtpyChipArr();
+		game.socket.newGame();
+		game.chip.hideChipScore();
 	},
 
 	stand: function() {

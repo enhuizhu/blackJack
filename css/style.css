@@ -398,7 +398,7 @@ body {
     display: block; }
   .gameStage.placed-bet .controllIcon {
     display: none; }
-    .gameStage.placed-bet .controllIcon.deal, .gameStage.placed-bet .controllIcon.undo {
+    .gameStage.placed-bet .controllIcon.deal, .gameStage.placed-bet .controllIcon.undo, .gameStage.placed-bet .controllIcon.clearChip {
       display: block; }
   .gameStage.placed-bet .chip.show, .gameStage.placed-bet .chipContainer {
     display: block; }

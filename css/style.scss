@@ -51,7 +51,7 @@ body{
 		.controllIcon {
 			display: none;
 
-			&.deal, &.undo {
+			&.deal, &.undo, &.clearChip {
 				display: block;
 			}
 		}

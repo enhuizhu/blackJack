@@ -65,9 +65,6 @@ game.chip={
    },
 
    hideChipScore: function() {
-   	   console.info("hide chip score");
-   	   console.trace();
-
    	   jQuery(".score.chip").removeClass("show");
    },
 
@@ -144,7 +141,7 @@ game.chip={
    	  			this.bankerChipArr = _.clone(this.chipArr);
    	  			this.setChipTotalInDom();
    	  			
-   	  			return this.bankerPutChips(this.chipArr);
+   	  			return this.bankerPutChips(this.chipArr, this.chipArr.length + 1);
    	  			break;
    	  	}
    },
@@ -186,11 +183,11 @@ game.chip={
 		return deferred.promise;
    },
 
-   putChips: function(chips, who) {
+   putChips: function(chips, who, startIndex) {
    	   var timeDistance = 100,
    	   	   that = this,
-   	   	   promises = [],
-   	   	   startIndex = this.chipArr.length + 1;
+   	   	   promises = [];
+   	   	   // startIndex = this.chipArr.length + 1;
 
    	   _.each(chips, function(v, k){
    	   	   	var promise = registerTimeout(that.putRegularChip, timeDistance * k, [startIndex + k, v, "top", who], that);
@@ -200,12 +197,12 @@ game.chip={
    	   return Q.all(promises);
    	},
    
-   bankerPutChips: function(chips) {
-   	   return this.putChips(chips, "banker");
+   bankerPutChips: function(chips, startIndex) {
+   	   return this.putChips(chips, "banker", startIndex);
    },
 
-   playerPutChips: function(chips) {
-   	   return this.putChips(chips, "player");
+   playerPutChips: function(chips, startIndex) {
+   	   return this.putChips(chips, "player", startIndex);
    },
    /**
    * function to make chip disappear
