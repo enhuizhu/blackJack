@@ -67,6 +67,7 @@
 <script src="js/helpers/animation.js"></script>
 <script src="js/helpers/time.js"></script>
 <script src="js/game.js"></script>
+<script src="js/game.stageScale.js"></script>
 <script src="js/game.cards.js"></script>
 <script src="js/game.chip.js"></script>
 <script src="js/game.state.js"></script>
