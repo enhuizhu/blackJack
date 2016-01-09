@@ -155,7 +155,7 @@ game.cards={
 			promises = [];
 
 		for (var i = 0; i < cards.length; i++) {
-			promises.push(registerTimeout(this[func], this.animationDelay * i, [startIndex + i, cards[i]], this));
+			promises.push(registerTimeout(this[func], (this.animationDelay + this.flipDelay) * i, [startIndex + i, cards[i]], this));
 		};
 
 		return Q.all(promises);
