@@ -1,3 +1,11 @@
+@mixin transform($transformStr){
+  transform:$transformStr;
+  -webkit-transform:$transformStr;
+  -moz-transform:$transformStr;
+  -o-trasform:$transformStr;
+  -ms-transform:$transformStr;
+}
+
 @mixin perspective($distance){
     perspective: $distance;
     -webkit-perspective: $distance;

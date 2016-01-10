@@ -205,7 +205,7 @@ body{
 .flip-container {
 	@include perspective(1000);
 	@include transformPerspective(1000px);
-	@include transfromStyle();
+	/*@include transfromStyle();*/
 	border: 1px solid #ccc;
 	@include transition(all,0.5s,ease-in-out);
 	@include RotateX(5deg);
@@ -214,53 +214,55 @@ body{
 		@include rotateXrotateZscale(19deg,0deg,0.5);
 	}
 	
+	.flipper {
+		@include transition("",0.6s,"");
+		/*@include transfromStyle();*/
+		position: relative;
+	}
+
 	.front, .back {
+		/*@include backfaceVisibility(hidden);	   */
+		/*@include transition("",0.6s,"");*/
+		/*@include transition(transform, 0.6s, "");*/
+		/*@include transfromStyle();*/
 		width: 257px;
 		height: 360px;
+		position: absolute;
+		top: 0;
+		left: 0;
+		background-image:url("images/generic_cards_set04_265x360size_shadow_optimized.png");
+		background-repeat:no-repeat;
 	}
+
+	.front {
+		@include RotateY(0deg);
+		z-index: 2;
+		background-position:-14050px 0px;
+	}
+
+	.back {
+		@include transform(scaleX(0));
+		z-index: -1;
+		/*@include RotateY(-180deg);*/
+	}
+
 
 	&.hover {
 		.back {
-		    @include RotateY(0deg);
+		    /*@include RotateY(0deg);*/
+		    /*@include transform(scaleX(1));*/
+	        @include animation(flipBack,0.6s);  
 		}
 
 		.front {
-			@include RotateY(180deg);
-			border: 1px solid #ccc;
-			@include transition(all,0.5s,ease-in-out);
+	        @include animation(flipFront,0.6s);  
+			/*@include RotateY(180deg);*/
+			/*@include transform(skewY(60deg) scaleX(0.001) scaleY(1));*/
+			/*border: 1px solid #ccc;*/
+			/*@include transition(all,0.5s,ease-in-out);*/
 		}
 	}
 }
-
-
-.flipper {
-	@include transition("",0.6s,"");
-	@include transfromStyle();
-	position: relative;
-}
-
-.front, .back {
-	@include backfaceVisibility(hidden);	   
-	/*@include transition("",0.6s,"");*/
-	@include transition(transform, 0.6s, "");
-	@include transfromStyle();
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-image:url("images/generic_cards_set04_265x360size_shadow_optimized.png");
-	background-repeat:no-repeat;
-}
-
-.front {
-	@include RotateY(0deg);
-	z-index: 2;
-	background-position:-14050px 0px;
-}
-
-.back {
-	@include RotateY(-180deg);
-}
-
 
 /**
 * css for all the card
@@ -403,6 +405,7 @@ $chipIndex : 0;
    top: 559px !important;
    left: 596px;
    opacity:0;
+   z-index: 100000;
 }
 
 .flyChip.chipDisappearForBanker{
@@ -411,6 +414,7 @@ $chipIndex : 0;
    top: 50px !important;
    left: 591px;
    opacity:0;
+   z-index: 100000;
 }
 
 .chipIcon.active{

@@ -261,6 +261,10 @@ game.state = {
 				
 		secondCard.find(".back").addClass(data.secondBankerCard);		
 		secondCard.addClass("hover");
+
+		setTimeout(function() {
+			secondCard.find(".front").hide();
+		}, game.cards.flipDelay / 2);
 		
 		game.cards.addCards([data.secondBankerCard], "banker");
 

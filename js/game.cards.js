@@ -12,34 +12,55 @@ game.cards={
    animationDelay: 500,
 
    flipDelay: 500,
-   /**
-   * generate card for user
-   **/
-   generateUserCard:function(n, cardValue){
-       this.generateCardDom(n,"player",jQuery(".gameStage"), cardValue);
+   
+   generateCard: function(n, cardValue, who) {
+	   this.generateCardDom(n, who, jQuery(".gameStage"), cardValue);
        
-       var cardDom = jQuery("[data-playerCardNumber="+n+"]"),
-       	   position = this.getUserCardPosition(n,"player"),
+       var domAtt = who == "player" ? "playerCardNumber" : "computerCardNumber",
+       	   addedClass = who == "player" ? "userFirtCard" : "computerCard",
+       	   cardDom = jQuery("[data-"+domAtt+"="+n+"]"),
+       	   position = this.getUserCardPosition(n, who),
        	   deferred = Q.defer(),
        	   that = this;
        
        setTimeout(function(){
-	     cardDom.addClass("userFirtCard").css({"left":position.x+"px","top":position.y+"px"});
+	     cardDom.addClass(addedClass).css({"left":position.x+"px","top":position.y+"px"});
 		 /**
 		 * add animation end event to the card dom
 		 **/
          cardDom.bind(transitionEnd,function(){
 	     	 // deferred.resolve("generateUserCard");
-		     jQuery(this).addClass("hover");
+		     if (!_.isEmpty(cardValue)) {
+			     jQuery(this).addClass("hover");
 
-		     setTimeout(function() {
-		     	deferred.resolve("generateUserCard");
-		     },that.flipDelay);
+			     setTimeout(function() {
+			     	deferred.resolve("generateCard");
+			     },that.flipDelay);
+
+			     setTimeout(function() {
+			     	cardDom.find(".front").hide();
+			     }, that.flipDelay / 2);
+		     }else{
+		     	deferred.resolve("generateCard");
+		     }
 		 });
 	   },100);
 
 	   return deferred.promise;
-    },
+   },
+   /**
+   * generate card for user
+   **/
+   generateUserCard:function(n, cardValue){
+       return this.generateCard(n, cardValue, "player");
+   },
+
+    /**
+   * function to generate computer card
+   **/
+   generateComputerCard:function(n, cardValue){
+       return this.generateCard(n, cardValue, "computer");
+   },
 
    setDomCardsTotalValue: function(value) {
 	   /**
@@ -53,40 +74,8 @@ game.cards={
 	   * display the score for the player's card
 	   **/
 	   jQuery(".score.top label").html(value);
-   },
+   }, 
    /**
-   * function to generate computer card
-   **/
-   generateComputerCard:function(n, cardValue){
-       this.generateCardDom(n,"computer",jQuery(".gameStage"), cardValue);
-
-       var cardDom = jQuery("[data-computerCardNumber="+n+"]"),
-           position = this.getUserCardPosition(n,"computer"),
-           deferred = Q.defer(),
-           that = this;
-       
-       setTimeout(function(){
-	     cardDom.addClass("computerCard").css({"left":position.x+"px","top":position.y+"px"});
-		 /**
-		 * add animation end event to the card dom
-		 **/
-         cardDom.bind(transitionEnd,function(){
-		     if (!_.isEmpty(cardValue)) {
-			     jQuery(this).addClass("hover");
-     		     
-     		     setTimeout(function() {
-				    deferred.resolve("generateComputerCard");
-			     },that.flipDelay);
-		     }else{
-				 deferred.resolve("generateComputerCard");
-		     }
-		 });
-	   },100);
-
-	   return deferred.promise;
-    },
-
-    /**
 	* function to get user card position
 	**/
 	getUserCardPosition:function(n,who){

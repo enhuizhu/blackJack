@@ -40,6 +40,73 @@
    }   
 }
 
+@mixin flipFront(){
+  0% {
+    @include transform(skewY(0deg) scaleX(1));
+  }
+
+  50% {
+    @include transform(skewY(60deg) scaleX(0.001));
+    display: none;
+  }
+
+  100% {
+    @include transform(skewY(60deg) scaleX(0.001));
+    display: none;
+  }
+}
+
+@mixin flipBack(){
+  0% {
+    @include transform(skewY(60deg) scaleX(0.001));
+    display: none;
+  }
+
+  50% {
+    @include transform(skewY(60deg) scaleX(0.001));
+    display: none;
+  }
+
+  100% {
+    @include transform(skewY(0deg) scaleX(1));
+    display: block;
+  }
+}
+
+ @-webkit-keyframes flipFront{
+    @include flipFront();
+ }
+ 
+ @-moz-keyframes flipFront{
+    @include flipFront();
+ }
+ 
+ @-ms-keyframes flipFront{
+    @include flipFront();
+ }
+ 
+ @-o-keyframes flipFront{
+    @include flipFront();
+ }
+
+ @-webkit-keyframes flipBack{
+    @include flipBack();
+ }
+ 
+ @-moz-keyframes flipBack{
+    @include flipBack();
+ }
+ 
+ @-ms-keyframes flipBack{
+    @include flipBack();
+ }
+ 
+ @-o-keyframes flipBack{
+    @include flipBack();
+ }
+
+
+
  @-webkit-keyframes putChipOnDeskTop{
     @include putChipOnDeskTop(top);
  }
