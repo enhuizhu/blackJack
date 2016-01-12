@@ -50,9 +50,9 @@ game.stageScale = {
 			/**
 			* only translate x
 			**/
-			translateX = this.stageWidth * (1 - scaleRate) / 2;
+			translateX = (winW - this.stageWidth * scaleRate) / 2;
 		}else {
-			translateY = this.stageHeight * (1 - scaleRate) / 2;
+			translateY = (winH - this.stageHeight * scaleRate) / 2;
 		}
 
 		return {
@@ -68,13 +68,15 @@ game.stageScale = {
 			translateObj = this.getTranslate(scaleRate, winW, winH),
 			prefixs = ["", "-webkit-","-ms-","-o-","-moz-"],
 			cssObj = {},
-			scaleStr = "scale(" + scaleRate + ")",
-			translateStr = "translate(" + translateObj.translateX + "px," + translateObj.translateY + "px)";
+			scaleStr = "scale(" + scaleRate + ")";
+			// translateStr = "translate(" + translateObj.translateX + "px," + translateObj.translateY + "px)";
 
 		prefixs.map(function(v, k) {
 			var key = v + "transform",
 				transformOrigin = v + "transform-origin";
-			cssObj[key] = scaleStr + " " + translateStr;
+			cssObj[key] = scaleStr;
+			cssObj.left = translateObj.translateX;
+			cssObj.top = translateObj.translateY;
 			cssObj[transformOrigin] = "left top";
 		});
 
