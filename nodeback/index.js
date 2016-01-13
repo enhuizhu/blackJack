@@ -1,5 +1,5 @@
-var port = 8080,
- 	io = require("socket.io").listen(port),
+var cofig = require("./modules/config.js"),
+ 	io = require("socket.io").listen(config.port),
  	_ = require("underscore"),
  	cardObj = require("./modules/cards.js"),
  	state = {
