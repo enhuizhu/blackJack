@@ -12,6 +12,8 @@ game.cards={
    animationDelay: 500,
 
    flipDelay: 500,
+
+   isCardFlying: false,
    
    generateCard: function(n, cardValue, who) {
 	   this.generateCardDom(n, who, jQuery(".gameStage"), cardValue);
@@ -21,16 +23,23 @@ game.cards={
        	   cardDom = jQuery("[data-"+domAtt+"="+n+"]"),
        	   position = this.getUserCardPosition(n, who),
        	   deferred = Q.defer(),
-       	   that = this;
+       	   that = this,
+       	   justGenerateCard = true;
        
        setTimeout(function(){
 	     cardDom.addClass(addedClass).css({"left":position.x+"px","top":position.y+"px"});
+	     game.sounds.play("sendcard");
 		 /**
 		 * add animation end event to the card dom
 		 **/
          cardDom.bind(transitionEnd,function(){
 	     	 // deferred.resolve("generateUserCard");
 		     if (!_.isEmpty(cardValue)) {
+			     if (justGenerateCard) {
+				     game.sounds.play("cardFlip");
+				     justGenerateCard = false;
+			     };
+			     
 			     jQuery(this).addClass("hover");
 
 			     setTimeout(function() {
@@ -175,6 +184,7 @@ game.cards={
 
 	    setTimeout(function(){
 			cardDom.addClass("disapppear");
+			game.sounds.play("sendcard");
 
 			cardDom.bind(transitionEnd,function(){
 			   jQuery(this).remove();

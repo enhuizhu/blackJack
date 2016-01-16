@@ -39,16 +39,14 @@ game.chip={
    		};
 
    		game.chip.chipArr.push(game.chip.currentChip);
-   		game.chip.putRegularChip(game.chip.chipArr.length, game.chip.currentChip, "top");
+   		game.chip.putRegularChip(game.chip.chipArr.length, game.chip.currentChip, "top").then(function() { 
+             game.chip.displayChipScore();
+             game.chip.setChipTotalInDom();
+         });
    		/**
    		* should send this infomation to node server
    		**/
    		game.socket.placedChip();
-
-   		setTimeout(function() {	
-	   		game.chip.displayChipScore();
-	   		game.chip.setChipTotalInDom();
-   		}, game.chip.chipAnimationTime);
    },
 
    displayChipScore: function() {
@@ -101,6 +99,7 @@ game.chip={
 
    selectChip: function(){
 		console.info("selectChip");
+      game.sounds.play("chipSelect");
 		/**
 		* make other chip inactive
 		**/
@@ -149,7 +148,9 @@ game.chip={
    * function to put regular chip on the table
    **/
    putRegularChip:function(chipIndex,chipValue,position,from){ 
-		var chipClass=this.getChipDomClass(chipValue),
+		game.sounds.play("chipSelect");
+
+      var chipClass=this.getChipDomClass(chipValue),
 			  deferred = Q.defer();
 
 		var domId = this.generateFlyingChipDom(chipClass);
@@ -167,7 +168,14 @@ game.chip={
 		* add transition end event to the fly chip
 		**/
 		jQuery("#" + domId).bind(animationEnd,function(){
-			deferred.resolve();
+			 console.info("chip down");
+         if (game.chip.chipArr.length <= 1) {
+             game.sounds.play("landBoard");
+         }else{
+             game.sounds.play("chipStack");
+         }
+
+         deferred.resolve();
 			jQuery(this).removeClass(extraClass).addClass(finalClass);
 			/**
 			* according to its index value should chnage its y position
@@ -184,18 +192,18 @@ game.chip={
    },
 
    putChips: function(chips, who, startIndex) {
-   	   var timeDistance = 100,
-   	   	   that = this,
-   	   	   promises = [];
-   	   	   // startIndex = this.chipArr.length + 1;
+	    var timeDistance = 100,
+	   	  that = this,
+	   	  promises = [];
+	   	   // startIndex = this.chipArr.length + 1;
 
-   	   _.each(chips, function(v, k){
-   	   	   	var promise = registerTimeout(that.putRegularChip, timeDistance * k, [startIndex + k, v, "top", who], that);
-   	   	   	promises.push(promise);
-   	   });
+	    _.each(chips, function(v, k){
+   	   	var promise = registerTimeout(that.putRegularChip, timeDistance * k, [startIndex + k, v, "top", who], that);
+   	   	promises.push(promise);
+	    });
 
-   	   return Q.all(promises);
-   	},
+	   return Q.all(promises);
+	},
    
    bankerPutChips: function(chips, startIndex) {
    	   return this.putChips(chips, "banker", startIndex);
@@ -208,6 +216,8 @@ game.chip={
    * function to make chip disappear
    **/
    makeChipDisppear:function(position, who){
+      game.sounds.play("chipsHandle");
+      
       var selector = position == "top" ? ".topEndPos" : ".topEndBottom",
       	  animationClass = who == "banker" ? "chipDisappearForBanker" : "chipDisappear",
       	  deferred = Q.defer();
@@ -268,7 +278,3 @@ game.chip={
 	 return false;
    }
 }
-
-jQuery(document).ready(function() {
-	game.chip.init();
-});

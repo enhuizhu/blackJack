@@ -71,6 +71,7 @@
 <script src="js/game.cards.js"></script>
 <script src="js/game.chip.js"></script>
 <script src="js/game.state.js"></script>
+<script src="js/game.sounds.js"></script>
 <script src="js/game.notifications.js"></script>
 <script src="js/game.socket.js"></script>
 

@@ -29,10 +29,11 @@ body{
 	.chip-placed-area {
 	    width: 180px;
 	    height: 126px;
-	    border: solid 1px black;
 	    position: absolute;
+	    cursor: pointer;
 	    top: 274px;
-	    left: 283px;	
+	    left: 283px;
+	    z-index: 10000;	
 	}
 	/**
 	* only display new game button, even the chipcontainer should be hided
@@ -324,7 +325,6 @@ $firstIndex: $firstIndex + 1;
 	position: absolute; 
 	bottom: 0px; 
 	text-align: center; 
-	border: solid 1px green; 
 	width: 100%;
 }
 

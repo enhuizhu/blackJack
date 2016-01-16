@@ -69,7 +69,12 @@ game.state = {
 	},
 
 	hit: function() {
+		game.sounds.play("btnClick");
 		game.state.checkError([game.state.list.DEAL, game.state.list.HIT]);
+		
+		if (game.cards.isCardFlying) {
+			return false;
+		};
 		/**
 		* should send request to server for asking new card
 		**/
@@ -77,6 +82,7 @@ game.state = {
 	},
 
 	rebet: function() {
+		game.sounds.play("btnClick");
 		game.state.rebetCommonFunction();
 	},
 
@@ -99,7 +105,7 @@ game.state = {
 			   		};
 
 			   		game.chip.displayChipScore();
-					game.state.deal();	
+					game.state.deal(true);	
 				});
 			}else{
 				if (game.chip.bankerChipArr.length > 0) {
@@ -111,10 +117,10 @@ game.state = {
 					game.chip.playerPutChips(game.chip.chipArr, game.chip.chipArr.length + 1).then(function() {
 			   			game.chip.chipArr = game.chip.chipArr.concat(game.chip.chipArr);
 						game.chip.setChipTotalInDom();
-						game.state.deal();
+						game.state.deal(true);
 					});
 				}else{
-					game.state.deal();
+					game.state.deal(true);
 				}
 		   		
 		   		game.chip.displayChipScore();
@@ -123,10 +129,15 @@ game.state = {
 	},
 
 	doubleRebet: function() {
+		game.sounds.play("btnClick");
 		game.state.rebetCommonFunction(true);
 	},
 
-	deal: function() {
+	deal: function(nosound) {
+		if (!nosound) {
+			game.sounds.play("btnClick");
+		};
+
 		game.state.checkError([game.state.list.PLACED_BET, game.state.list.NEW_WITH_HISTORY]);
 
 		if (_.isEmpty(game.chip.chipArr)) {
@@ -137,6 +148,7 @@ game.state = {
 	},
 
 	newGame: function() {
+		game.sounds.play("btnClick");
 		game.state.checkError([game.state.list.NEW, game.state.list.NEW_WITH_HISTORY]);
 		/**
 		* should check current game state, if the state is NEW_WITH_HISTORY, then should
@@ -153,6 +165,7 @@ game.state = {
 	},
 
 	undo: function() {
+		game.sounds.play("btnClick");
 		/**
 		* should check if the current state is placed bet and thie chip arr is empty or not
 		**/
@@ -173,6 +186,7 @@ game.state = {
 	},
 
 	clearChip: function() {
+		game.sounds.play("btnClick");
 		game.state.checkError(game.state.list.PLACED_BET);
 		game.chip.emtpyChipArr();
 		game.socket.newGame();
@@ -180,6 +194,7 @@ game.state = {
 	},
 
 	stand: function() {
+		game.sounds.play("btnClick");
 		game.state.checkError([game.state.list.DEAL, game.state.list.HIT]);
 		game.socket.stand();		
 	},
@@ -214,10 +229,13 @@ game.state = {
 		/**
 		* send out the new card
 		**/
+		game.cards.isCardFlying = true;
+		
 		game.cards.sendoutPlayerCards(data.newCard, "player").then(function(params) {
 			console.info("on hit promise", params);
 			game.cards.setDomCardsTotalValue(data.playerTotal);
 			game.cards.addCards(data.newCard, "player");
+			game.cards.isCardFlying = false;
 			/**
 			* should check if user already get black jack or bust
 			**/
@@ -231,7 +249,9 @@ game.state = {
 		console.info("on deal!", data);
 		var playerCards = data.playerCards,
 			bankerCards = data.bankerCards;
-	
+
+		game.cards.isCardFlying = true;
+		
 		game.cards.sendoutPlayerCards(playerCards).then(function() {
 			game.cards.addCards(playerCards, "player");
 			
@@ -251,6 +271,8 @@ game.state = {
 				if (typeof data.finalState != "undefined") {
 					game.socket.stand();
 				};
+
+				game.cards.isCardFlying = false;
 			});
 		});
 	},
@@ -261,6 +283,8 @@ game.state = {
 				
 		secondCard.find(".back").addClass(data.secondBankerCard);		
 		secondCard.addClass("hover");
+		console.info("second card hover");
+		game.sounds.play("cardFlip");
 
 		setTimeout(function() {
 			secondCard.find(".front").hide();
@@ -322,6 +346,7 @@ game.state = {
 	},
 
 	setResultForPlayer: function(playerTotal, finalState) {
+		game.sounds.playFinalStateSound(finalState);
 		this.setResult(playerTotal, finalState, "player");
 	},
 
@@ -432,8 +457,3 @@ game.state = {
 		return deferred.promise;
 	}
 }
-
-
-jQuery(document).ready(function() {
-	game.state.init();
-});

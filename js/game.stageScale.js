@@ -43,7 +43,8 @@ game.stageScale = {
 		* no need scale
 		**/
 		if (winW > this.stageWidth && winH > this.stageHeight) {
-			return false;
+			translateX = (winW - this.stageWidth) / 2;
+			translateY = (winH - this.stageHeight) / 2;
 		};
 
 		if (winRatio > stageRaio) {
@@ -80,8 +81,6 @@ game.stageScale = {
 			cssObj[transformOrigin] = "left top";
 		});
 
-		console.info("the value of cssObj is:", cssObj);
-
 		jQuery("#gameStage").css(cssObj);
 	},
 
@@ -93,9 +92,3 @@ game.stageScale = {
 		});
 	}
 }
-
-
-jQuery(document).ready(function() {
-	game.stageScale.setSize();
-	game.stageScale.bindEvents();
-});

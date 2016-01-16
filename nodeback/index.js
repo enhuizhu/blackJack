@@ -1,4 +1,4 @@
-var cofig = require("./modules/config.js"),
+var config = require("./modules/config.js"),
  	io = require("socket.io").listen(config.port),
  	_ = require("underscore"),
  	cardObj = require("./modules/cards.js"),

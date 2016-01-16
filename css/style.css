@@ -576,10 +576,11 @@ body {
   .gameStage .chip-placed-area {
     width: 180px;
     height: 126px;
-    border: solid 1px black;
     position: absolute;
+    cursor: pointer;
     top: 274px;
-    left: 283px; }
+    left: 283px;
+    z-index: 10000; }
   .gameStage.new-game .chipContainer, .gameStage.new-game .controllIcon {
     display: none; }
   .gameStage.new-game .newGame {
@@ -980,7 +981,6 @@ body {
   position: absolute;
   bottom: 0px;
   text-align: center;
-  border: solid 1px green;
   width: 100%; }
 
 .chipList {
