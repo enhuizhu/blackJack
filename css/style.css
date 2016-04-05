@@ -581,6 +581,8 @@ body {
     top: 274px;
     left: 283px;
     z-index: 10000; }
+    .gameStage .chip-placed-area:before {
+      content: "Please click here to place chip."; }
   .gameStage.new-game .chipContainer, .gameStage.new-game .controllIcon {
     display: none; }
   .gameStage.new-game .newGame {
